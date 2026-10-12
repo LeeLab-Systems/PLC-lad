@@ -156,6 +156,14 @@ code{font-family:var(--mono);font-size:.9em}
 .nh{font-size:13px;font-weight:600;padding:7px 10px;background:var(--grid);border-bottom:1px solid var(--line);cursor:pointer;display:flex;gap:8px;align-items:baseline}
 .nn{font-family:var(--mono);color:var(--accent)}
 .nh .muted{font-weight:400}
+.nt{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.ncm{font-size:12.5px;color:var(--muted);font-style:italic;padding:5px 10px;border-bottom:1px solid var(--line);white-space:pre-wrap;word-break:break-word}
+.ned{display:flex;flex-direction:column;gap:6px;padding:8px 10px;border-bottom:1px solid var(--line);background:var(--card)}
+.ned input,.ned textarea{width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--lad);color:var(--ink);font-size:13.5px;font-family:inherit}
+.ned textarea{min-height:52px;resize:vertical}
+.ned input{font-weight:600}
+.chip:disabled{opacity:.4;cursor:default}
+.ver{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:6px;vertical-align:middle;font-weight:400}
 .sc{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
 .net .sc{padding:6px 4px 8px}
 .addnet{margin-top:10px;width:100%;border:1px dashed var(--line);background:transparent;color:var(--accent);padding:10px;border-radius:8px;font-size:13.5px;cursor:pointer}
@@ -226,7 +234,7 @@ td.v:not(.b){color:var(--accent);font-weight:600}
     <div class="logo" aria-hidden="true">
       <svg width="26" height="26" viewBox="0 0 26 26"><line x1="3" y1="3" x2="3" y2="23" stroke="#3ee06a" stroke-width="2.5"/><line x1="3" y1="13" x2="9" y2="13" stroke="#3ee06a" stroke-width="2"/><line x1="10" y1="7" x2="10" y2="19" stroke="#3ee06a" stroke-width="2"/><line x1="15" y1="7" x2="15" y2="19" stroke="#3ee06a" stroke-width="2"/><line x1="16" y1="13" x2="23" y2="13" stroke="#3ee06a" stroke-width="2"/></svg>
     </div>
-    <div><h1>Учебный ПЛК: пишем программу сами</h1><p>Редактор LAD в стиле TIA Portal, симуляция S7-1200</p></div>
+    <div><h1>Учебный ПЛК: пишем программу сами<span class="ver">v1.0</span></h1><p>Редактор LAD в стиле TIA Portal, симуляция S7-1200</p></div>
   </div>
   <nav id="tabs" class="tabs" aria-label="Задания"></nav>
 </header>
@@ -614,7 +622,8 @@ function renderReport(){
 }
 function opbarHTML(){
  if(!S.sel)return`<span class="muted">Выбери элемент в сети, чтобы задать операнд. Новые элементы встают после выбранного.</span>`;
- if(S.sel.net)return`<span class="muted">Выбрана сеть. Новые элементы добавятся в её конец. «Удалить» удалит всю сеть.</span>`;
+ if(S.sel.net){const i=S.prog.findIndex(n=>n.id===S.sel.net),last=S.prog.length-1;
+  return`<button class="chip" data-act="nup" ${i<=0?'disabled':''}>↑ Выше</button><button class="chip" data-act="ndn" ${i>=last?'disabled':''}>↓ Ниже</button><button class="chip" data-act="nabove">+ Сеть над этой</button><button class="chip" data-act="nbelow">+ Сеть под этой</button><span class="muted">Новые элементы добавятся в конец сети. «Удалить» удалит всю сеть.</span>`;}
  const L=locate(S.sel.id);if(!L)return'';
  const e=L.el;
  const chip=(a,act,attr)=>`<button class="chip ${act?'act':''}" ${attr}="${a}">"${esc(nameOf(a))}"<small>%${a}</small></button>`;
@@ -638,7 +647,9 @@ function renderProg(){
  grp('prog');
  const p=$('#prog');
  p.className=(S.mon&&!S.dirty)?'live':'';
- p.innerHTML=S.prog.map((n,i)=>`<div class="net ${S.sel&&S.sel.net===n.id?'selnet':''}"><div class="nh" data-net="${n.id}"><span class="nn">Сеть ${i+1}</span>${!n.items.length&&!n.coils.length?'<span class="muted">пустая, выбери инструмент на панели сверху</span>':''}</div><div class="sc">${netSVG(n)}</div></div>`).join('')+`<button class="addnet" data-act="net">+ Добавить сеть</button>`;
+ p.innerHTML=S.prog.map((n,i)=>{const on=S.sel&&S.sel.net===n.id;
+  const ed=on?`<div class="ned"><input data-nmeta="title" data-nid="${n.id}" maxlength="60" placeholder="Заголовок сети (например: Пуск двигателя)" value="${esc(n.title||'')}" aria-label="Заголовок сети"><textarea data-nmeta="cmt" data-nid="${n.id}" maxlength="300" placeholder="Комментарий: что делает эта сеть" aria-label="Комментарий к сети">${esc(n.cmt||'')}</textarea></div>`:(n.cmt?`<div class="ncm">${esc(n.cmt)}</div>`:'');
+  return`<div class="net ${on?'selnet':''}"><div class="nh" data-net="${n.id}"><span class="nn">Сеть ${i+1}${n.title?':':''}</span>${n.title?`<span class="nt" data-ntitle="${n.id}">${esc(n.title)}</span>`:''}${!n.items.length&&!n.coils.length?'<span class="muted">пустая, выбери инструмент на панели сверху</span>':''}</div>${ed}<div class="sc">${netSVG(n)}</div></div>`;}).join('')+`<button class="addnet" data-act="net">+ Добавить сеть</button>`;
  $('#opbar').innerHTML=opbarHTML();
  const st=$('#status');st.className='status'+(S.dirty?' dirty':'');
  st.innerHTML=`<span class="dot"></span>${S.dirty?'Изменения не загружены':'Онлайн, совпадает с ПЛК'}`;
@@ -687,6 +698,8 @@ document.addEventListener('click',e=>{
  else if(act==='del')del();
  else if(act==='undo')undo();
  else if(act==='flip'){const L=locate(S.sel.id);if(L)edit(()=>{L.el.t=L.el.t==='NO'?'NC':'NO';});}
+ else if(act==='nup'||act==='ndn'){const i=S.prog.findIndex(n=>n&&S.sel&&n.id===S.sel.net),j=act==='nup'?i-1:i+1;if(i<0||j<0||j>=S.prog.length)return;edit(()=>{const[n]=S.prog.splice(i,1);S.prog.splice(j,0,n);});}
+ else if(act==='nabove'||act==='nbelow'){const i=S.prog.findIndex(n=>S.sel&&n.id===S.sel.net);if(i<0)return;edit(()=>{const n=newNet();S.prog.splice(act==='nabove'?i:i+1,0,n);S.sel={net:n.id};});}
  else if(act==='net'){edit(()=>{const n=newNet();const tn=targetNet();const i=tn?S.prog.indexOf(tn):S.prog.length-1;S.prog.splice(i+1,0,n);S.sel={net:n.id};});}
  else if(act==='test')runTests();
  else if(act==='clear'){edit(()=>{S.prog=[newNet()];S.sel=null;});S.report=null;renderReport();toast('Программа очищена. «Отменить» вернёт её');}
@@ -696,6 +709,13 @@ document.addEventListener('click',e=>{
  else if(act==='pmin'){S.pmin=!S.pmin;renderPanel();paint();fit();}
 });
 document.addEventListener('change',e=>{
+ const nm0=e.target.closest('[data-nmeta]');
+ if(nm0){const n=S.prog.find(x=>x.id===nm0.dataset.nid);if(!n)return;const f=nm0.dataset.nmeta,v=nm0.value.replace(/\s+$/,'').replace(/^\s+/,'');
+  if((n[f]||'')===v)return;
+  S.hist.push(JSON.stringify(S.prog,strip));if(S.hist.length>60)S.hist.shift();
+  if(v)n[f]=v;else delete n[f];save();
+  if(f==='title'){const h=document.querySelector(`.nh[data-net="${n.id}"]`);if(h){const i=S.prog.indexOf(n)+1;h.querySelector('.nn').textContent=`Сеть ${i}${v?':':''}`;let t=h.querySelector('.nt');if(v){if(!t){t=document.createElement('span');t.className='nt';h.querySelector('.nn').after(t);}t.textContent=v;}else if(t)t.remove();}}
+  return;}
  const f=e.target.closest('[data-f]');
  if(f&&S.sel&&S.sel.id){const L=locate(S.sel.id);const v=parseFloat(f.value);if(!L||!(v>0)){toast('Введи число больше нуля');renderProg();return;}
   edit(()=>{if(f.dataset.f==='pt')L.el.pt=Math.round(v*1000);else L.el.pv=Math.max(1,Math.round(v));});return;}
@@ -706,6 +726,7 @@ document.addEventListener('change',e=>{
   S.custom[a]=v;save();renderProg();}
 });
 document.addEventListener('keydown',e=>{
+ if(e.key==='Enter'&&e.target.matches&&e.target.matches('input[data-nmeta]')){e.preventDefault();e.target.blur();return;}
  const el=e.target.closest&&e.target.closest('#prog [data-e]');
  if(el&&(e.key==='Enter'||e.key===' ')){e.preventDefault();S.sel={id:el.dataset.e};renderProg();return;}
  if(el&&(e.key==='Delete'||e.key==='Backspace')){e.preventDefault();S.sel={id:el.dataset.e};del();return;}
