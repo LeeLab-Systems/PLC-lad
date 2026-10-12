@@ -163,6 +163,36 @@ code{font-family:var(--mono);font-size:.9em}
 .ned textarea{min-height:52px;resize:vertical}
 .ned input{font-weight:600}
 .chip:disabled{opacity:.4;cursor:default}
+.seg{display:flex;gap:0;margin:0 0 10px;border:1px solid var(--line);border-radius:8px;overflow:hidden;width:max-content}
+.seg button{border:none;background:var(--card);color:var(--ink);padding:7px 16px;font-size:13.5px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.act{background:var(--accent);color:#fff}
+.seg button.ok::after{content:" ✓";color:var(--on);font-weight:700}
+.seg button.act.ok::after{color:#fff}
+.lesson .th{max-width:72ch}
+.lesson ol{padding-left:20px;margin:8px 0}.lesson li{margin:4px 0}
+.lmini{overflow-x:auto;margin:10px 0;padding:6px 4px;background:var(--lad);border:1px solid var(--line);border-radius:8px}
+.lmini svg{display:block}
+.lmini line,.lmini path,.lmini rect{stroke:var(--wire);stroke-width:1.6;fill:none}
+.lmini text{fill:var(--ink);font:11.5px var(--mono);text-anchor:middle}
+.lmini text.b{font-weight:700;font-size:12.5px}.lmini text.s{font-size:11px;fill:var(--muted)}
+.quiz{border-top:1px solid var(--line);margin-top:12px;padding-top:10px}
+.qt{font-weight:700;margin-bottom:6px}
+.q{margin:10px 0}.qq{font-size:14px;margin-bottom:6px}
+.qo{display:flex;flex-wrap:wrap;gap:6px}
+.qb{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:7px;padding:7px 12px;font-size:13.5px;cursor:pointer;text-align:left}
+.qb.right{border-color:var(--on);background:color-mix(in srgb,var(--on) 15%,var(--card))}
+.qb.wrong{border-color:var(--err);background:color-mix(in srgb,var(--err) 12%,var(--card))}
+.qe{font-size:13px;margin-top:6px;padding:6px 8px;border-radius:6px;background:var(--grid)}
+.qe.right{border-left:3px solid var(--on)}.qe.wrong{border-left:3px solid var(--err)}
+.qdone{margin-top:10px;color:var(--on);font-weight:700}
+.tabs button.basics{border-color:var(--accent);color:var(--accent)}
+#basics{position:fixed;inset:0;z-index:50;background:rgba(10,16,19,.55);overflow-y:auto;padding:calc(env(safe-area-inset-top,0px) + 12px) 10px calc(env(safe-area-inset-bottom,0px) + 12px)}
+#basics[hidden]{display:none}
+.bwrap{max-width:760px;margin:0 auto}
+.bhd{display:flex;justify-content:space-between;align-items:center;font-size:16px}
+.bwrap .tabs{margin:8px 0 12px}
+body.noscroll{overflow:hidden}
 .ver{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:6px;vertical-align:middle;font-weight:400}
 .sc{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
 .net .sc{padding:6px 4px 8px}
@@ -229,6 +259,7 @@ td.v:not(.b){color:var(--accent);font-weight:600}
 </head>
 <body>
 <div id="toast" role="status" aria-live="polite"></div>
+<div id="basics" hidden role="dialog" aria-label="Основы ПЛК"></div>
 <header class="top">
   <div class="brand">
     <div class="logo" aria-hidden="true">
@@ -351,12 +382,12 @@ const TASKS=[
 ];
 
 /* ---------- state & storage ---------- */
-const S={run:true,mon:true,bits:{},dev:{},inst:{},now:0,prog:[],loaded:[],dirty:false,sel:null,hist:[],custom:{},comp:null,report:null,pmin:false,ti:0};
+const S={run:true,mon:true,bits:{},dev:{},inst:{},now:0,prog:[],loaded:[],dirty:false,sel:null,hist:[],custom:{},comp:null,report:null,pmin:false,ti:0,view:'task',basics:false,bi:0};
 const LS='plc-lad-editor-v1';
 let STORE={};try{STORE=JSON.parse(localStorage.getItem(LS))||{};}catch(e){STORE={};}
 const strip=(k,v)=>k[0]==='_'?undefined:v;
 const clone=o=>JSON.parse(JSON.stringify(o,strip));
-function save(){try{STORE[T.id]={prog:JSON.parse(JSON.stringify(S.prog,strip)),names:S.custom,passed:!!(STORE[T.id]&&STORE[T.id].passed)||!!S.passed};localStorage.setItem(LS,JSON.stringify(STORE));}catch(e){}}
+function save(){try{STORE[T.id]={prog:JSON.parse(JSON.stringify(S.prog,strip)),names:S.custom,passed:!!(STORE[T.id]&&STORE[T.id].passed)||!!S.passed,lesson:!!(STORE[T.id]&&STORE[T.id].lesson)};localStorage.setItem(LS,JSON.stringify(STORE));}catch(e){}}
 const nameOf=a=>S.custom[a]||(T.tagOv&&T.tagOv[a])||(BASE[a]?BASE[a][0]:a);
 const cmtOf=a=>{const id=T.devices.find(d=>DEV[d].a===a);if(id){const d=DEV[id];return`${id} ${(T.names&&T.names[id])||d.name}, ${devKind(d)}`;}return BASE[a]?BASE[a][1]:'';};
 function tagList(){const s=new Set();T.devices.forEach(id=>s.add(DEV[id].a));for(let i=0;i<8;i++)s.add('M0.'+i);s.add('M20.5');
@@ -593,7 +624,7 @@ function devHTML(id){
  if(d.k==='lamp')return`<div class="dev"><div class="lamp" data-c="${d.col}" id="${did}"></div><div class="dn"><b>${id}</b> ${name}</div><div class="dw">${d.a}</div></div>`;
  return`<div class="dev"><div class="mot ${d.rev?'rev':''}" id="${did}">${d.k==='fan'?FAN:MOT}</div><div class="dn"><b>${id}</b> ${name}</div><div class="dw">${d.a}</div></div>`;
 }
-function renderTabs(){$('#tabs').innerHTML=TASKS.map((t,i)=>`<button data-task="${i}" class="${i===S.ti?'act':''} ${STORE[t.id]&&STORE[t.id].passed?'ok':''}">${t.tab}</button>`).join('');}
+function renderTabs(){$('#tabs').innerHTML=`<button class="basics" data-act="basics">📘 Основы</button>`+TASKS.map((t,i)=>`<button data-task="${i}" class="${i===S.ti?'act':''} ${STORE[t.id]&&STORE[t.id].passed?'ok':''}">${t.tab}</button>`).join('');}
 function renderCPU(){
  grp('cpu');
  const led=(l,fn,c)=>{const id=nid('l');B.push({id,fn});return`<span class="led ${c}" id="${id}"><i></i>${l}</span>`;};
@@ -611,8 +642,12 @@ function renderPanel(){
  p.innerHTML=`<div class="phd"><span class="ptitle">Пульт и объект</span><button class="mini" data-act="pmin">${S.pmin?'Развернуть':'Свернуть'}</button></div><div class="devs">${T.devices.map(devHTML).join('')}</div>`;
 }
 function renderTask(){
+ const Lz=LESSONS[T.id];
+ if(Lz&&S.view==='lesson'){const done=lessonDone(T.id);
+  $('#task').innerHTML=`<div class="seg"><button class="act ${done?'ok':''}" data-view="lesson">Урок</button><button data-view="task">Задание</button></div><h2>${Lz.title}</h2>${lessonHTML(T.id,Lz)}<div class="tact"><button class="primary" data-view="task">К заданию →</button></div>`;return;}
+ const seg=Lz?`<div class="seg"><button class="${lessonDone(T.id)?'ok':''}" data-view="lesson">Урок</button><button class="act" data-view="task">Задание</button></div>`:'';
  const w=T.devices.map(id=>{const d=DEV[id];return`<div class="wr"><b>${id}</b><div>${devName(id)} <span>${devKind(d)}</span></div><code>%${d.a}</code></div>`;}).join('');
- $('#task').innerHTML=`<h2>${T.name}</h2><p class="goal">${T.goal}</p><div class="wiring"><div class="wt">Подключение к ПЛК</div>${w}</div>${T.hint?`<details><summary>Подсказка</summary><div class="th">${T.hint}</div></details>`:''}<div class="tact">${T.tests?'<button class="primary" data-act="test">Проверить решение</button>':''}<button class="ghost" data-act="clear">Очистить программу</button></div><div id="report"></div>`;
+ $('#task').innerHTML=seg+`<h2>${T.name}</h2><p class="goal">${T.goal}</p><div class="wiring"><div class="wt">Подключение к ПЛК</div>${w}</div>${T.hint?`<details><summary>Подсказка</summary><div class="th">${T.hint}</div></details>`:''}<div class="tact">${T.tests?'<button class="primary" data-act="test">Проверить решение</button>':''}<button class="ghost" data-act="clear">Очистить программу</button></div><div id="report"></div>`;
  renderReport();
 }
 function renderReport(){
@@ -674,7 +709,7 @@ function paint(){
  }
 }
 function loadTask(i){
- S.ti=i;T=TASKS[i];const st=STORE[T.id]||{};
+ S.ti=i;T=TASKS[i];const st=STORE[T.id]||{};S.view=LESSONS[T.id]&&!st.lesson?'lesson':'task';
  S.prog=st.prog&&st.prog.length?clone(st.prog):[newNet()];S.custom=st.names||{};S.passed=!!st.passed;
  let mx=UID;walkAll(e=>{const n=parseInt(String(e.id).slice(1));if(n>=mx)mx=n+1;});S.prog.forEach(n=>{const k=parseInt(String(n.id).slice(1));if(k>=mx)mx=k+1;});UID=mx;
  S.loaded=clone(S.prog);S.dirty=false;S.bits={};S.dev={};S.inst={};S.sel=null;S.hist=[];S.comp=null;S.report=null;
@@ -682,9 +717,150 @@ function loadTask(i){
 }
 let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2400);}
 
+/* ---------- уроки и теория ---------- */
+function mini(spec){
+ const U=100,BW=100,RH=50,Y0=34;
+ const wL=l=>l.reduce((a,e)=>a+wE(e),0)||U;
+ const wE=e=>e[0]==='P'?Math.max(...e[1].map(wL)):(e[0]==='NO'||e[0]==='NC'?U:BW);
+ const hL=l=>Math.max(1,...l.map(e=>e[0]==='P'?e[1].reduce((a,b)=>a+hL(b),0):1));
+ let s='';
+ const ln=(a,b,c,d)=>{s+=`<line x1="${a}" y1="${b}" x2="${c}" y2="${d}"/>`;};
+ const tx=(x,y,t,c='')=>{s+=`<text x="${x}" y="${y}" class="${c}">${t}</text>`;};
+ const dL=(l,x0,y,W)=>{let x=x0;for(const e of l){const w=wE(e);dE(e,x,y,w);x+=w;}if(x<x0+W)ln(x,y,x0+W,y);};
+ const dE=(e,x,y,w)=>{
+  if(e[0]==='NO'||e[0]==='NC'){ln(x,y,x+41,y);ln(x+41,y-10,x+41,y+10);ln(x+59,y-10,x+59,y+10);ln(x+59,y,x+w,y);if(e[0]==='NC')ln(x+37,y+12,x+63,y-12);tx(x+50,y-15,e[1]);return;}
+  if(e[0]==='P'){let yy=y;e[1].forEach((b,i)=>{dL(b,x,yy,w);if(i){ln(x,y,x,yy);ln(x+w,y,x+w,yy);}yy+=hL(b)*RH;});return;}
+  ln(x,y,x+12,y);s+=`<rect x="${x+12}" y="${y-14}" width="${w-24}" height="42" rx="3"/>`;tx(x+w/2,y-1,e[0],'b');tx(x+w/2,y+18,e[1],'s');ln(x+w-12,y,x+w,y);
+ };
+ const W=wL(spec.s),H=Math.max(hL(spec.s),(spec.c||[]).length)*RH+14,cx=4+W+18;
+ ln(2,4,2,H-4);dL(spec.s,4,Y0,W);ln(4+W,Y0,cx,Y0);
+ (spec.c||[]).forEach((c,j)=>{const y=Y0+j*RH;if(j)ln(cx,y-RH,cx,y);ln(cx,y,cx+24,y);s+=`<path d="M${cx+30} ${y-10}Q${cx+23} ${y} ${cx+30} ${y+10}M${cx+46} ${y-10}Q${cx+53} ${y} ${cx+46} ${y+10}"/>`;if(c[0]!=='=')tx(cx+38,y+4,c[0],'b');tx(cx+38,y-15,c[1]);});
+ const SW=cx+86;
+ return`<div class="lmini"><svg viewBox="0 0 ${SW} ${H}" width="${SW}" height="${H}">${s}</svg></div>`;
+}
+const BASICS=[
+{id:'b1',title:'Что такое ПЛК',html:`<p><b>ПЛК</b> (программируемый логический контроллер) — промышленный компьютер, который управляет оборудованием по программе. Вместо десятков реле и проводов логику пишут программой, и её можно поменять, не перебирая шкаф.</p>
+<p>К <b>входам</b> ПЛК подключают то, что сообщает о состоянии объекта: кнопки, концевики, датчики, контакты реле. К <b>выходам</b> — то, чем он управляет: катушки контакторов, лампы, клапаны.</p>
+<p>В этом приложении симулируется <b>S7-1200, CPU 1214C DC/DC/DC</b>: питание 24 В DC, 14 дискретных входов и 10 транзисторных выходов на 24 В. Программа пишется на языке <b>LAD</b> (релейная логика) — он выглядит как электрическая схема, повёрнутая на бок.</p>
+<p>У CPU два режима: <b>RUN</b> — программа выполняется, <b>STOP</b> — выполнение остановлено, все выходы выключены.</p>`,
+quiz:[{q:'Куда подключают кнопку «Пуск»?',o:['На вход ПЛК','На выход ПЛК','На питание 24 В'],a:0,e:'Кнопка сообщает ПЛК о действии оператора, значит это вход (%I).'},
+{q:'Что происходит с выходами в режиме STOP?',o:['Остаются как были','Выключаются','Включаются все'],a:1,e:'В STOP программа не выполняется, и выходы S7-1200 по умолчанию переходят в 0.'}]},
+{id:'b2',title:'Цикл ПЛК',html:`<p>ПЛК выполняет программу не один раз, а по кругу, тысячи раз в минуту. Один круг называется <b>циклом сканирования</b>:</p>
+<ol><li>Считать все входы и запомнить их в <b>образ входов</b> (PII).</li><li>Выполнить программу OB1 <b>сверху вниз</b>, сеть за сетью. Результаты пишутся в <b>образ выходов</b> (PIQ).</li><li>Передать образ выходов на физические выходы.</li></ol>
+<p>Здесь цикл 30 мс. Из этого следуют два важных правила:</p>
+<p><b>1. Порядок сетей имеет значение.</b> Сеть ниже видит то, что записала сеть выше в этом же цикле.</p>
+<p><b>2. Последняя запись побеждает.</b> Если один выход пишут две сети, на клемму уйдёт результат нижней. Поэтому каждую катушку «Выход» ставят в программе только один раз.</p>`,
+quiz:[{q:'Выход %Q0.0 написан катушкой в сети 1 (результат 1) и в сети 3 (результат 0). Что на клемме?',o:['1','0','Мигает'],a:1,e:'Сети выполняются сверху вниз, физический выход получает значение после всей программы — это 0 из сети 3.'},
+{q:'Когда ПЛК читает состояние кнопок?',o:['В начале каждого цикла','Один раз при включении','Когда кнопку нажали'],a:0,e:'Входы считываются в образ входов в начале каждого цикла, и вся программа работает с этой копией.'}]},
+{id:'b3',title:'Адреса и теги',html:`<p>Каждый сигнал имеет <b>адрес</b> вида <code>%I0.0</code>: область, номер байта, точка, номер бита (0–7).</p>
+<p><code>%I</code> — входы, <code>%Q</code> — выходы, <code>%M</code> — <b>меркеры</b>: внутренние биты памяти, к которым ничего не подключено. В них хранят промежуточные результаты, например «авария запомнена».</p>
+<p>Чтобы не держать адреса в голове, им дают <b>символьные имена — теги</b>: <code>%I0.0</code> = <code>"Start"</code>, <code>%Q0.0</code> = <code>"Motor"</code>. В TIA Portal имя пишется в кавычках, адрес — с %. Переименовать теги можно в таблице тегов под редактором.</p>
+<p>Меркер <code>%M20.5</code> = <code>"Clock_1Hz"</code> — <b>тактовый меркер</b>: сам переключается раз в 0,5 с, то есть мигает с частотой 1 Гц. В настоящем CPU его включают в свойствах (Clock memory byte).</p>`,
+quiz:[{q:'Что такое %M0.0?',o:['Вход','Выход','Внутренний бит памяти'],a:2,e:'Область M — меркеры, внутренняя память ПЛК без клемм.'},
+{q:'Сколько бит в одном байте адреса, например %I0.x?',o:['8 (0–7)','10 (0–9)','16'],a:0,e:'Номер бита — от 0 до 7, после %I0.7 идёт %I1.0.'}]},
+{id:'b4',title:'Контакты и катушки',html:`<p>Сеть LAD читается слева направо. Слева — <b>шина питания</b>, от неё «ток» течёт через контакты к катушке справа.</p>
+${mini({s:[['NO','"Start"'],['NC','"Stop"']],c:[['=','"Motor"']]})}
+<p><b>Контакт НО</b> (—| |—) пропускает ток, когда бит операнда = <b>1</b>.<br><b>Контакт НЗ</b> (—|/|—) пропускает ток, когда бит = <b>0</b>.<br><b>Катушка</b> (—( )—) записывает в свой бит 1, если до неё дошёл ток, и 0, если нет.</p>
+<p>Контакты <b>последовательно</b> — это И: нужны оба. <b>Параллельно</b> (ветвь) — это ИЛИ: хватит любого.</p>
+${mini({s:[['P',[[['NO','"A"']],[['NO','"B"']]]]],c:[['=','"Lamp"']]})}
+<p><b>Главная ловушка:</b> тип контакта в программе не связан с тем, какой контакт у кнопки в шкафу. Контакт в программе лишь проверяет бит: 1 или 0. Что придёт на вход от реальной кнопки — решает её подключение.</p>`,
+quiz:[{q:'Контакт НО с операндом %I0.0. На входе 1. Пропускает ли он ток?',o:['Да','Нет'],a:0,e:'НО контакт замкнут, когда бит = 1.'},
+{q:'Два контакта соединены параллельно. Это…',o:['Логическое И','Логическое ИЛИ','Инверсия'],a:1,e:'Параллельные ветви: достаточно, чтобы ток прошёл по любой из них.'},
+{q:'Контакт НЗ с операндом "Stop". На входе 1. Ток проходит?',o:['Да','Нет'],a:1,e:'НЗ контакт в программе замкнут только при бите 0.'}]},
+{id:'b5',title:'Как работать в редакторе',html:`<p><b>1.</b> Выбери на панели инструмент: НО, НЗ, Выход, Set, Reset, таймер или счётчик. Новый элемент встаёт после выбранного или в конец сети.</p>
+<p><b>2.</b> Тапни элемент в сети — под панелью появится строка операндов. Тапни нужный тег, чтобы назначить адрес. У контакта там же есть «Сделать НЗ/НО».</p>
+<p><b>3.</b> «Ветвь» делает параллельную ветвь к выбранному контакту.</p>
+<p><b>4.</b> Тапни шапку сети «Сеть N» — выберешь всю сеть: можно дать ей заголовок и комментарий, переместить выше или ниже, вставить новую сеть над ней или под ней.</p>
+<p><b>5.</b> «В ПЛК» компилирует и загружает программу. Пока не загрузил, ПЛК работает по старой. После загрузки нажимай кнопки на пульте и смотри, как в режиме «Мониторинг» по сети течёт ток: зелёным — где есть сигнал.</p>
+<p><b>6.</b> «Проверить решение» прогоняет автотест задания и показывает, что сработало, а что нет.</p>`,
+quiz:[{q:'Ты поменял программу, но лампа ведёт себя по-старому. Почему?',o:['Программа не загружена «В ПЛК»','Сломан выход','Нужно перезапустить приложение'],a:0,e:'Изменения начинают работать только после загрузки в ПЛК — как и в настоящем TIA Portal.'}]}
+];
+const LESSONS={
+t1:{title:'Вход, выход и простейшая сеть',html:`<p>Самая простая программа: выход повторяет вход. Пока бит <code>%I0.0</code> = 1, контакт НО замкнут, ток доходит до катушки, и она пишет 1 в <code>%Q0.1</code>.</p>
+${mini({s:[['NO','"Start"']],c:[['=','"Lamp_Run"']]})}
+<p>Отпустил кнопку — вход 0, контакт разомкнут, катушка пишет 0, лампа гаснет. Катушка «Выход» ничего не помнит: каждый цикл она заново записывает то, что пришло слева.</p>
+<p>Так работает кнопка без фиксации. Чтобы мотор продолжал работать после отпускания кнопки, нужна память — это следующий урок.</p>`,
+quiz:[{q:'Что запишет катушка, если до неё не дошёл ток?',o:['0','Оставит прежнее значение','1'],a:0,e:'Обычная катушка всегда записывает результат: нет тока — 0.'},
+{q:'Где лампа HL1 в этой задаче?',o:['%I0.1','%Q0.1','%M0.1'],a:1,e:'Лампа — исполнительное устройство, она на выходе %Q0.1.'}]},
+t2:{title:'Самоподхват и кнопка Стоп',html:`<p><b>Самоподхват</b> — классика релейных схем: параллельно кнопке Пуск ставят контакт самого выхода. Нажал Пуск — выход включился, и теперь он сам держит себя через свою ветвь.</p>
+${mini({s:[['NO','"Stop"'],['P',[[['NO','"Start"']],[['NO','"Motor"']]]]],c:[['=','"Motor"'],['=','"Lamp_Run"']]})}
+<p><b>Почему Стоп — НО контакт в программе?</b> Кнопка SB2 в шкафу подключена <b>НЗ</b> контактом. В покое цепь замкнута, на <code>%I0.1</code> приходит 1. Чтобы ток проходил, пока Стоп не нажат, нужен контакт, который замкнут при 1, — это НО. Нажали Стоп — вход 0, цепь разорвана.</p>
+<p>Зачем так сложно? Это <b>защита от обрыва</b>: если провод от кнопки Стоп оборвётся, на входе станет 0, и мотор остановится, а не останется без возможности остановки.</p>
+<p><b>Стоп важнее Пуска:</b> контакт Стоп стоит последовательно перед всей параллельной группой, поэтому при нажатом Стоп не поможет ни Пуск, ни подхват.</p>`,
+quiz:[{q:'SB2 «Стоп» подключена НЗ контактом. Что на %I0.1, когда её не трогают?',o:['1','0'],a:0,e:'НЗ контакт кнопки в покое замкнут — на вход приходит 24 В, это 1.'},
+{q:'Какой контакт нужен в программе для такого Стопа?',o:['НО','НЗ'],a:0,e:'В покое вход = 1, и цепь должна быть замкнута — значит, контакт НО.'},
+{q:'Что даёт подключение Стопа НЗ контактом?',o:['Мотор остановится при обрыве провода','Кнопка дольше служит','Можно не ставить подхват'],a:0,e:'Обрыв выглядит для ПЛК как нажатый Стоп — это безопасный отказ.'}]},
+t3:{title:'Set, Reset и запоминание аварии',html:`<p>Катушка «Выход» не помнит состояние. Для памяти есть пара катушек:</p>
+<p><b>Set (S)</b> — если ток дошёл, пишет 1. Если не дошёл — <b>ничего не меняет</b>.<br><b>Reset (R)</b> — если ток дошёл, пишет 0. Если нет — ничего не меняет.</p>
+${mini({s:[['NC','"Thermal_OK"']],c:[['S','"Fault"']]})}
+${mini({s:[['NO','"Reset"'],['NO','"Thermal_OK"']],c:[['R','"Fault"']]})}
+<p>Так бит <code>"Fault"</code> (меркер %M0.0) запоминает аварию, даже когда реле уже вернулось в норму. Сбросить её может только оператор — это называется <b>квитирование</b>: человек подтверждает, что видел аварию.</p>
+<p>Если Set и Reset сработают в одном цикле, победит та сеть, что ниже: <b>последняя запись побеждает</b>.</p>
+<p>Тепловое реле KK1 подключено <b>НЗ контактом 95-96</b>: в норме на <code>%I0.2</code> = 1. Сработало — 0. Поэтому «реле сработало» в программе — это НЗ контакт на <code>"Thermal_OK"</code>.</p>
+<p>Для мигания поставь последовательно с <code>"Fault"</code> контакт <code>"Clock_1Hz"</code>.</p>`,
+quiz:[{q:'До катушки Set не дошёл ток. Что будет с битом?',o:['Станет 0','Не изменится','Станет 1'],a:1,e:'Set и Reset действуют только при токе, иначе бит хранит прежнее значение.'},
+{q:'Что такое квитирование?',o:['Автоматический сброс аварии','Подтверждение аварии оператором','Мигание лампы'],a:1,e:'Авария сбрасывается только после действия человека, который увидел её причину.'},
+{q:'Set в сети 2 и Reset в сети 4 сработали в одном цикле. Итог?',o:['1','0'],a:1,e:'Сеть 4 ниже, её запись последняя — бит = 0.'}]},
+t4:{title:'Таймер с задержкой включения TON',html:`<p><b>TON</b> (on-delay) — задержка включения. У блока есть вход <b>IN</b>, время <b>PT</b> и выход <b>Q</b>; текущее время видно как <b>ET</b>.</p>
+${mini({s:[['NO','"Motor"'],['TON','T#3S']],c:[['=','"Fan"']]})}
+<p>Подал 1 на IN — таймер начал отсчёт. Когда ET дошло до PT, выход Q = 1 и держится, пока IN = 1. Пропал IN — Q = 0 и ET сбрасывается в ноль <b>сразу</b>.</p>
+<p>Если IN был 1 меньше PT, выход так и не включится: таймер начнёт отсчёт заново при следующем включении.</p>
+<p>У каждого таймера S7-1200 есть свой <b>экземплярный блок данных</b> (instance DB), например <code>"IEC_Timer_0_DB"</code>: там хранится его состояние. Значение ET видно в таблице тегов.</p>
+<p>Время записывается так: <code>T#3S</code>, <code>T#500MS</code>, <code>T#1S_200MS</code>.</p>`,
+quiz:[{q:'PT = 3 с. Мотор проработал 2 с и остановился. Включился ли вентилятор?',o:['Да, на 1 с','Нет','Да, после останова'],a:1,e:'IN пропал до окончания отсчёта, ET сбросился, Q так и не стал 1.'},
+{q:'Что происходит с Q сразу после того, как IN стал 0?',o:['Q = 0 сразу','Q = 0 через PT'],a:0,e:'TON выключается мгновенно. Задержка выключения — это TOF.'}]},
+t5:{title:'Таймер с задержкой отключения TOF',html:`<p><b>TOF</b> (off-delay) — задержка отключения, зеркальный TON.</p>
+${mini({s:[['NO','"Motor"'],['TOF','T#5S']],c:[['=','"Fan"']]})}
+<p>IN = 1 → выход Q = 1 <b>сразу</b>. IN пропал → таймер начинает отсчёт, Q остаётся 1 ещё время PT, потом становится 0. Если IN снова появился во время отсчёта, отсчёт сбрасывается, Q остаётся 1.</p>
+<p>Типичное применение — <b>выбег</b>: вентилятор охлаждает двигатель после останова, насос дотягивает остатки, лампа подсветки гаснет не сразу.</p>`,
+quiz:[{q:'Когда Q у TOF становится 1?',o:['Сразу с IN','Через PT после IN'],a:0,e:'TOF включается без задержки, задерживается только выключение.'},
+{q:'PT = 5 с. Мотор остановили, а через 2 с снова запустили. Что с вентилятором?',o:['Выключится на мгновение','Будет работать без перерыва'],a:1,e:'IN вернулся до конца отсчёта — Q так и не упал, отсчёт сброшен.'}]},
+t6:{title:'Счётчик CTU',html:`<p><b>CTU</b> (count up) — счётчик вверх. Входы: <b>CU</b> — счёт, <b>R</b> — сброс, <b>PV</b> — уставка. Выходы: <b>CV</b> — текущее значение, <b>Q</b> = 1, когда CV ≥ PV.</p>
+${mini({s:[['NO','"Sensor"'],['NO','"Conveyor"'],['CTU','PV=5']],c:[['=','"Done"']]})}
+<p>Счётчик считает <b>фронты</b> — моменты, когда CU меняется с 0 на 1. Деталь стоит под датчиком сколько угодно долго, но засчитана будет один раз. Без этого за одно касание ПЛК насчитал бы сотни: цикл ведь 30 мс.</p>
+<p>R = 1 обнуляет CV и держит его в нуле, пока R не пропадёт.</p>
+<p>Чтобы остановить конвейер по готовой партии, выход Q пишут в меркер и ставят этот меркер <b>НЗ контактом</b> в цепь пуска: партия готова — цепь разорвана.</p>`,
+quiz:[{q:'Деталь 2 секунды стоит под датчиком. Сколько насчитает CTU?',o:['1','Примерно 66','2'],a:0,e:'CTU считает только переход 0→1, длительность сигнала не важна.'},
+{q:'PV = 5, CV = 5. Чему равен Q?',o:['0','1'],a:1,e:'Q = 1, когда CV ≥ PV.'}]},
+t7:{title:'Реверс и блокировка',html:`<p>Реверсивный пуск — два контактора: KM1 «вперёд» и KM2 «назад». Они меняют местами две фазы. Если включить оба сразу — <b>межфазное короткое замыкание</b>.</p>
+<p>Поэтому в цепь каждого контактора ставят <b>НЗ контакт другого</b> — это <b>взаимная блокировка</b>:</p>
+${mini({s:[['NO','"Stop"'],['P',[[['NO','"Fwd"']],[['NO','"Motor_Fwd"']]]],['NC','"Motor_Back"']],c:[['=','"Motor_Fwd"']]})}
+<p>Пока работает «назад», НЗ контакт <code>"Motor_Back"</code> разомкнут, и «вперёд» не включится, хоть жми. Сеть «назад» строится так же, зеркально.</p>
+<p>В настоящем шкафу программной блокировки <b>мало</b>: контактор может залипнуть, ПЛК — не знать об этом. Поэтому дублируют <b>электрической блокировкой</b> — НЗ блок-контактами KM1 и KM2 прямо в цепях катушек, а часто ещё и механической.</p>`,
+quiz:[{q:'Что будет, если KM1 и KM2 включатся одновременно?',o:['Мотор остановится','Межфазное КЗ','Мотор пойдёт быстрее'],a:1,e:'Реверсор меняет две фазы местами, при обоих включённых они замыкаются между собой.'},
+{q:'Какой контакт ставят в цепь «вперёд» для блокировки?',o:['НО "Motor_Back"','НЗ "Motor_Back"'],a:1,e:'НЗ контакт размыкается, когда «назад» включён, и не даёт включить «вперёд».'},
+{q:'Хватит ли в реальном шкафу только программной блокировки?',o:['Да','Нет, нужна и электрическая'],a:1,e:'Залипший контактор ПЛК не увидит — защищают блок-контакты в цепях катушек.'}]}
+};
+const QA={};
+function lessonDone(key){return key[0]==='b'?!!(STORE.__basics&&STORE.__basics[key]):!!(STORE[key]&&STORE[key].lesson);}
+function markLesson(key){
+ if(key[0]==='b'){STORE.__basics=STORE.__basics||{};STORE.__basics[key]=true;}
+ else STORE[key]=Object.assign({},STORE[key]||{},{lesson:true});
+ try{localStorage.setItem(LS,JSON.stringify(STORE));}catch(e){}
+}
+function lessonHTML(key,L){
+ const ans=QA[key]||{},quiz=L.quiz||[];
+ const ok=quiz.every((q,i)=>ans[i]===q.a);
+ const qh=quiz.map((q,i)=>{const a=ans[i];return`<div class="q"><div class="qq">${i+1}. ${q.q}</div><div class="qo">${q.o.map((o,j)=>`<button class="qb ${a===j?(j===q.a?'right':'wrong'):''}" data-qa="${key}|${i}|${j}">${o}</button>`).join('')}</div>${a!=null?`<div class="qe ${a===q.a?'right':'wrong'}">${a===q.a?'Верно. ':'Не совсем. '}${q.e}</div>`:''}</div>`;}).join('');
+ return`<div class="lesson"><div class="th">${L.html}</div>${quiz.length?`<div class="quiz"><div class="qt">Проверь себя</div>${qh}</div>`:''}${ok?`<div class="qdone">✓ Урок пройден</div>`:''}</div>`;
+}
+function renderBasics(){
+ const ov=$('#basics');if(!S.basics){ov.hidden=true;document.body.classList.remove('noscroll');return;}
+ const i=S.bi,L=BASICS[i];ov.hidden=false;document.body.classList.add('noscroll');
+ const nav=BASICS.map((b,j)=>`<button class="${j===i?'act':''} ${lessonDone(b.id)?'ok':''}" data-bl="${j}">${j+1}. ${b.title}</button>`).join('');
+ ov.innerHTML=`<div class="bwrap card"><div class="bhd"><b>Основы ПЛК</b><button class="mini" data-act="bclose">Закрыть</button></div><nav class="tabs">${nav}</nav><h2>${L.title}</h2>${lessonHTML(L.id,L)}<div class="tact">${i>0?`<button class="ghost" data-bl="${i-1}">← Назад</button>`:''}${i<BASICS.length-1?`<button class="primary" data-bl="${i+1}">Дальше →</button>`:`<button class="primary" data-act="bclose">К заданиям →</button>`}</div></div>`;
+ ov.scrollTop=0;
+ const tb=ov.querySelector('.tabs'),ac=tb.querySelector('.act');if(ac)tb.scrollLeft=ac.offsetLeft-tb.clientWidth/2+ac.offsetWidth/2;
+}
+
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{
  const t=e.target;
+ const qa=t.closest('[data-qa]');if(qa){const[k,qi,oi]=qa.dataset.qa.split('|');QA[k]=QA[k]||{};QA[k][+qi]=+oi;
+  const Lq=k[0]==='b'?BASICS.find(b=>b.id===k):LESSONS[k];if(Lq.quiz.every((q,i)=>QA[k][i]===q.a)&&!lessonDone(k)){markLesson(k);toast('Урок пройден');}
+  if(k[0]==='b')renderBasics();else renderTask();return;}
+ const vw=t.closest('[data-view]');if(vw){S.view=vw.dataset.view;renderTask();$('#task').scrollIntoView({block:'start',behavior:'smooth'});return;}
+ const bl=t.closest('[data-bl]');if(bl){S.bi=+bl.dataset.bl;renderBasics();return;}
  const tk=t.closest('[data-task]');if(tk){loadTask(+tk.dataset.task);return;}
  const tl=t.closest('[data-tool]');if(tl){tool(tl.dataset.tool);return;}
  const op=t.closest('[data-op]');if(op){const L=locate(S.sel.id);if(L)edit(()=>{L.el.tag=op.dataset.op;});return;}
@@ -706,6 +882,8 @@ document.addEventListener('click',e=>{
  else if(act==='closecomp'){S.comp=null;renderComp();}
  else if(act==='runstop'){S.run=!S.run;if(S.run){for(const k in S.bits)if(k[0]==='M'&&k!=='M20.5')delete S.bits[k];S.inst={};}}
  else if(act==='mon'){S.mon=!S.mon;renderProg();}
+ else if(act==='basics'){S.basics=true;renderBasics();}
+ else if(act==='bclose'){S.basics=false;renderBasics();}
  else if(act==='pmin'){S.pmin=!S.pmin;renderPanel();paint();fit();}
 });
 document.addEventListener('change',e=>{
@@ -752,6 +930,7 @@ mq.addEventListener?mq.addEventListener('change',fit):mq.addListener(fit);
 
 X=S;
 loadTask(0);
+if(!Object.keys(STORE).length){S.basics=true;renderBasics();}
 setInterval(scan,30);
 </script>
 </body>
