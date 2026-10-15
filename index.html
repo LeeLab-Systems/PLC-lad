@@ -84,7 +84,7 @@ h2{font-size:16.5px;margin:0 0 6px;line-height:1.25}
 .tg{height:46px;min-width:68px;border-radius:8px;border:2px solid var(--line);background:var(--grid);color:var(--ink);font-size:12px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .tg .b{display:none}.tg.on{background:#d5302a;border-color:#a62019;color:#fff}.tg.on .a{display:none}.tg.on .b{display:inline}
 .lamp{--lc:#888;width:34px;height:34px;margin:6px 0;border-radius:50%;border:3px solid #a7b2b8;background:color-mix(in srgb,var(--lc) 22%,#2b3236)}
-.lamp[data-c=green]{--lc:#35e06a}.lamp[data-c=red]{--lc:#ff3b30}.lamp[data-c=yellow]{--lc:#ffc21a}
+.lamp[data-c=green]{--lc:#35e06a}.lamp[data-c=white]{--lc:#fff3c4}.lamp[data-c=blue]{--lc:#3b8fd9}.lamp[data-c=red]{--lc:#ff3b30}.lamp[data-c=yellow]{--lc:#ffc21a}
 .lamp.on{background:radial-gradient(circle at 40% 35%,rgba(255,255,255,.6),transparent 50%),var(--lc);box-shadow:0 0 18px var(--lc)}
 .mot{width:46px;height:46px;color:var(--muted)}
 .mot svg{width:100%;height:100%;display:block}
@@ -187,8 +187,44 @@ code{font-family:var(--mono);font-size:.9em}
 .qe.right{border-left:3px solid var(--on)}.qe.wrong{border-left:3px solid var(--err)}
 .qdone{margin-top:10px;color:var(--on);font-weight:700}
 .tabs button.basics{border-color:var(--accent);color:var(--accent)}
-#basics{position:fixed;inset:0;z-index:50;background:rgba(10,16,19,.55);overflow-y:auto;padding:calc(env(safe-area-inset-top,0px) + 12px) 10px calc(env(safe-area-inset-bottom,0px) + 12px)}
-#basics[hidden]{display:none}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px}
+.ccard{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:10px;cursor:pointer;min-height:118px}
+.ccard.ok{border-color:var(--on)}
+.cc{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.cn{font-weight:700;font-size:14.5px;line-height:1.25}
+.cl{color:#e2ae16;font-size:13px;letter-spacing:1px}.cl i{font-style:normal;color:var(--line)}
+.ct2{font-size:12px;color:var(--muted);line-height:1.3}
+.cok{margin-top:auto;font-size:12px;color:var(--on);font-weight:700}
+.plant{border:1px solid var(--line);border-radius:8px;padding:6px 8px;margin-bottom:10px;background:var(--lad)}
+.plh{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);font-weight:600}
+.plh .mini{margin-left:auto}
+.pflag{color:var(--err);font-weight:700}
+.pls{display:block;width:100%;max-width:340px;height:auto;margin:2px auto 0}
+.pls .tank{fill:none;stroke:var(--wire);stroke-width:2}
+.pls .tankw{fill:#3b8fd9;opacity:.75}
+.pls .pm,.pls .grd{stroke:var(--wire);stroke-width:1.5}
+.pls .pled{fill:#46535a}.pls .pled.on{fill:#3ee06a}
+.pls .plb{font:10px var(--mono);fill:var(--muted)}
+.pls .plv{font:600 13px var(--mono);fill:var(--ink);text-anchor:middle}
+.pls .pipe{stroke:#8a979d;stroke-width:5;stroke-linecap:round}.pls .pipe.on{stroke:#3b8fd9}
+.pls .post{fill:#6b7a80}.pls .gate{fill:var(--grid);stroke:var(--wire);stroke-width:1.5}
+.pls .gbar{stroke:var(--wire);stroke-width:1.2}
+.pls .whl{fill:var(--wire)}
+.pls .boom{fill:#d5302a;stroke:#fff;stroke-width:1;stroke-dasharray:12 8}
+.pls .car{display:none}.pls .car.on{display:inline}.pls .car rect{fill:#2a66c8}
+.sn{width:30px;height:30px;margin:8px 0;border-radius:50%;border:3px solid #a7b2b8;background:#2b3236;display:flex;align-items:center;justify-content:center}
+.sn i{width:12px;height:12px;border-radius:50%;background:#46535a}
+.sn.on i{background:#ffc21a;box-shadow:0 0 8px #ffc21a}
+.km{width:46px;height:34px;margin:6px 0;border:2px solid var(--line);border-radius:5px;display:flex;align-items:center;justify-content:center;font:700 12px var(--mono);color:var(--muted);background:var(--grid)}
+.km.on{background:var(--on);border-color:var(--on);color:#fff}
+.mot.horn .hb,.mot.valve .hb{fill:var(--grid);stroke:currentColor;stroke-width:2.2;stroke-linejoin:round}
+.mot.horn .hw,.mot.valve .hw{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.mot.horn .hw{opacity:0}.mot.horn.on .hw{opacity:1}
+.mot.horn.on,.mot.valve.on{color:var(--on)}.mot.horn.on .hb,.mot.valve.on .hb{fill:var(--on)}
+.tg.gen.on{background:var(--accent);border-color:var(--accent)}
+.ct .ctt{font:700 12px var(--mono);fill:var(--ink);text-anchor:middle}
+#basics,#catalog{position:fixed;inset:0;z-index:50;background:rgba(10,16,19,.55);overflow-y:auto;padding:calc(env(safe-area-inset-top,0px) + 12px) 10px calc(env(safe-area-inset-bottom,0px) + 12px)}
+#basics[hidden],#catalog[hidden]{display:none}
 .bwrap{max-width:760px;margin:0 auto}
 .bhd{display:flex;justify-content:space-between;align-items:center;font-size:16px}
 .bwrap .tabs{margin:8px 0 12px}
@@ -260,6 +296,7 @@ td.v:not(.b){color:var(--accent);font-weight:600}
 <body>
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="basics" hidden role="dialog" aria-label="Основы ПЛК"></div>
+<div id="catalog" hidden role="dialog" aria-label="Задачи"></div>
 <header class="top">
   <div class="brand">
     <div class="logo" aria-hidden="true">
@@ -284,6 +321,7 @@ td.v:not(.b){color:var(--accent);font-weight:600}
           <span class="sep"></span>
           <button data-tool="NO" title="Нормально открытый контакт"><svg viewBox="0 0 30 16"><path d="M0 8h10M20 8h10M11 2v12M19 2v12"/></svg>НО</button>
           <button data-tool="NC" title="Нормально закрытый контакт"><svg viewBox="0 0 30 16"><path d="M0 8h10M20 8h10M11 2v12M19 2v12M7 14L23 2"/></svg>НЗ</button>
+          <button data-tool="P" title="Контакт положительного фронта (P)"><svg viewBox="0 0 30 16"><path d="M0 8h10M20 8h10M11 2v12M19 2v12"/><text x="15" y="11.5" text-anchor="middle">P</text></svg>Фронт</button>
           <button data-tool="branch" title="Параллельная ветвь к выбранному контакту"><svg viewBox="0 0 30 16"><path d="M0 4h30M5 4v10h20V4"/></svg>Ветвь</button>
           <button data-tool="=" title="Катушка"><svg viewBox="0 0 30 16"><path d="M0 8h9M21 8h9M12 2Q7 8 12 14M18 2Q23 8 18 14"/></svg>Выход</button>
           <button data-tool="S" title="Установить (Set)"><svg viewBox="0 0 30 16"><path d="M0 8h9M21 8h9M12 2Q7 8 12 14M18 2Q23 8 18 14"/><text x="15" y="11.5" text-anchor="middle">S</text></svg>Set</button>
@@ -336,7 +374,8 @@ const DEV={
  HL3:{k:'lamp',name:'Партия',a:'Q0.4',col:'yellow'},
  KM2:{k:'motor',name:'Назад',a:'Q0.5',rev:true}
 };
-const devKind=d=>d.k==='btn'?`кнопка ${d.w==='NO'?'НО':'НЗ'}`:d.k==='tog'?'реле, НЗ 95-96':d.k==='lamp'?'лампа':d.k==='fan'?'вентилятор':'контактор';
+const D=id=>(T&&T.io&&T.io[id])||DEV[id];
+const devKind=d=>d.k==='sens'?`датчик ${d.w==='NO'?'НО':'НЗ'}`:d.k==='tog'&&d.la?`переключатель ${d.w==='NO'?'НО':'НЗ'}`:d.k==='km'?'контактор':d.k==='horn'?'сирена':d.k==='valve'?'клапан':d.k==='btn'?`кнопка ${d.w==='NO'?'НО':'НЗ'}`:d.k==='tog'?'реле, НЗ 95-96':d.k==='lamp'?'лампа':d.k==='fan'?'вентилятор':'контактор';
 
 /* ---------- tasks ---------- */
 const start=[{pr:'SB1'}],stop=[{pr:'SB2'}];
@@ -382,15 +421,16 @@ const TASKS=[
 ];
 
 /* ---------- state & storage ---------- */
-const S={run:true,mon:true,bits:{},dev:{},inst:{},now:0,prog:[],loaded:[],dirty:false,sel:null,hist:[],custom:{},comp:null,report:null,pmin:false,ti:0,view:'task',basics:false,bi:0};
+const S={run:true,mon:true,bits:{},dev:{},inst:{},now:0,prog:[],loaded:[],dirty:false,sel:null,hist:[],custom:{},comp:null,report:null,pmin:false,ti:0,view:'task',basics:false,bi:0,catOpen:false,catF:-1,pl:null};
 const LS='plc-lad-editor-v1';
 let STORE={};try{STORE=JSON.parse(localStorage.getItem(LS))||{};}catch(e){STORE={};}
 const strip=(k,v)=>k[0]==='_'?undefined:v;
 const clone=o=>JSON.parse(JSON.stringify(o,strip));
 function save(){try{STORE[T.id]={prog:JSON.parse(JSON.stringify(S.prog,strip)),names:S.custom,passed:!!(STORE[T.id]&&STORE[T.id].passed)||!!S.passed,lesson:!!(STORE[T.id]&&STORE[T.id].lesson)};localStorage.setItem(LS,JSON.stringify(STORE));}catch(e){}}
-const nameOf=a=>S.custom[a]||(T.tagOv&&T.tagOv[a])||(BASE[a]?BASE[a][0]:a);
-const cmtOf=a=>{const id=T.devices.find(d=>DEV[d].a===a);if(id){const d=DEV[id];return`${id} ${(T.names&&T.names[id])||d.name}, ${devKind(d)}`;}return BASE[a]?BASE[a][1]:'';};
-function tagList(){const s=new Set();T.devices.forEach(id=>s.add(DEV[id].a));for(let i=0;i<8;i++)s.add('M0.'+i);s.add('M20.5');
+const devTag=a=>{if(!T.io)return null;for(const k in T.io)if(T.io[k].a===a)return T.io[k].t;return null;};
+const nameOf=a=>S.custom[a]||(T.tagOv&&T.tagOv[a])||devTag(a)||(BASE[a]?BASE[a][0]:a);
+const cmtOf=a=>{const id=T.devices.find(d=>D(d).a===a);if(id){const d=D(id);return`${id} ${(T.names&&T.names[id])||d.name}, ${devKind(d)}`;}return BASE[a]?BASE[a][1]:'';};
+function tagList(){const s=new Set();T.devices.forEach(id=>{if(D(id).a)s.add(D(id).a);});for(let i=0;i<8;i++)s.add('M0.'+i);s.add('M20.5');
  const ord={I:0,Q:1,M:2};return[...s].sort((a,b)=>{if(a[0]!==b[0])return ord[a[0]]-ord[b[0]];const[x1,y1]=a.slice(1).split('.').map(Number),[x2,y2]=b.slice(1).split('.').map(Number);return x1-x2||y1-y2;});}
 const newNet=()=>({id:nid('n'),items:[],coils:[]});
 
@@ -414,7 +454,7 @@ function box(e,pin){
 function evL(l,pin){let p=pin;for(const it of l)p=evI(it,p);return p;}
 function evI(e,pin){
  e._in=pin;
- if(e.k==='c'){const v=gb(e.tag);e._cl=e.t==='NO'?v:!v;e._out=pin&&e._cl;}
+ if(e.k==='c'){const v=gb(e.tag);if(e.t==='P'||e.t==='N'){const k='_e'+e.id,pv=!!X.inst[k];e._cl=e.t==='P'?v&&!pv:!v&&pv;X.inst[k]=v;}else e._cl=e.t==='NO'?v:!v;e._out=pin&&e._cl;}
  else if(e.k==='b')e._out=box(e,pin);
  else if(e.k==='p'){let o=false;for(const b of e.br)o=evL(b,pin)||o;e._out=o;}
  return e._out;
@@ -422,7 +462,8 @@ function evI(e,pin){
 function clrL(l){for(const e of l){e._in=e._out=e._cl=false;if(e.br)e.br.forEach(clrL);}}
 function scanCtx(c,nets,devs){
  X=c;
- for(const id of devs){const d=DEV[id];if(d.a[0]!=='I')continue;const act=!!c.dev[id];c.bits[d.a]=d.w==='NO'?act:!act;}
+ if(c.pl&&T.plant){const dt=Math.min(0.1,Math.max(0,(c.now-(c._pt??c.now))/1000));T.plant.step(c,dt);}c._pt=c.now;
+ for(const id of devs){const d=D(id);if(!d.a||d.a[0]!=='I')continue;const act=!!c.dev[id];c.bits[d.a]=d.w==='NO'?act:!act;}
  c.bits['M20.5']=Math.floor(c.now/500)%2===0;
  if(c.run){
   for(const n of nets){const r=evL(n.items,true);n._out=r;for(const q of n.coils){if(!q.tag)continue;if(q.t==='=')c.bits[q.tag]=r;else if(r)c.bits[q.tag]=q.t==='S';}}
@@ -453,7 +494,7 @@ function drawI(e,x,y,n){
  if(e.k==='c'){
   s+=wire(x,ly,x+24,ly,()=>e._in)+wire(x+42,ly,x+CW,ly,()=>e._out);
   const id=nid('g');B.push({id,fn:()=>e._cl});
-  s+=`<g id="${id}" class="ct ${isSel(e)?'sel':''}" data-e="${e.id}" tabindex="0" role="button" aria-label="Контакт ${e.t==='NO'?'НО':'НЗ'} ${e.tag||'без операнда'}"><rect class="hit" x="${x+2}" y="${y+1}" width="${CW-4}" height="${CH-2}" rx="4"/><line class="pl" x1="${x+24}" y1="${ly-11}" x2="${x+24}" y2="${ly+11}"/><line class="pl" x1="${x+42}" y1="${ly-11}" x2="${x+42}" y2="${ly+11}"/>${e.t==='NC'?`<line class="pl" x1="${x+18}" y1="${ly+11}" x2="${x+48}" y2="${ly-11}"/>`:''}${lbl(x+CW/2,y,e.tag)}</g>`;
+  s+=`<g id="${id}" class="ct ${isSel(e)?'sel':''}" data-e="${e.id}" tabindex="0" role="button" aria-label="Контакт ${({NO:'НО',NC:'НЗ',P:'фронт P',N:'фронт N'})[e.t]} ${e.tag||'без операнда'}"><rect class="hit" x="${x+2}" y="${y+1}" width="${CW-4}" height="${CH-2}" rx="4"/><line class="pl" x1="${x+24}" y1="${ly-11}" x2="${x+24}" y2="${ly+11}"/><line class="pl" x1="${x+42}" y1="${ly-11}" x2="${x+42}" y2="${ly+11}"/>${e.t==='NC'?`<line class="pl" x1="${x+18}" y1="${ly+11}" x2="${x+48}" y2="${ly-11}"/>`:''}${e.t==='P'||e.t==='N'?`<text class="ctt" x="${x+33}" y="${ly+4}">${e.t}</text>`:''}${lbl(x+CW/2,y,e.tag)}</g>`;
  }else if(e.k==='p'){
   let yy=y,last=y;
   for(const b of e.br){last=yy;s+=drawL(b,x,yy,n.w,()=>e._in);yy+=natL(b).h*CH;}
@@ -554,7 +595,7 @@ function undo(){
  S.prog=JSON.parse(S.hist.pop());S.sel=null;S.dirty=true;S.comp=null;save();renderProg();renderTags();
 }
 function tool(t){
- if(t==='NO'||t==='NC')addItem({k:'c',t,tag:null,id:nid('e')});
+ if(t==='NO'||t==='NC'||t==='P')addItem({k:'c',t,tag:null,id:nid('e')});
  else if(t==='='||t==='S'||t==='R')addCoil(t);
  else if(t==='branch')addBranch();
  else addItem({k:'b',type:t,id:nid('e'),name:boxName(t),pt:t==='TON'?3000:5000,pv:5,r:null});
@@ -589,7 +630,7 @@ function download(){
 function runTests(){
  const r=compile();
  if(r.some(x=>x.e)){S.comp=r;S.report={fail:true,title:'Сначала исправь ошибки компиляции',res:[]};renderProg();renderReport();return;}
- const nets=clone(S.prog),c={bits:{},inst:{},now:0,dev:{},run:true};
+ const nets=clone(S.prog),c={bits:{},inst:{},now:0,dev:{},run:true,pl:T.plant?T.plant.init():null};
  const step=()=>{c.now+=10;scanCtx(c,nets,T.devices);};
  const n=k=>{for(let i=0;i<k;i++)step();};
  n(5);
@@ -603,8 +644,14 @@ function runTests(){
   else if(s.w){n(Math.round(s.w/10));}
   else if(s.x){const ok=Object.entries(s.x).every(([a,v])=>!!c.bits[a]===!!v);res.push({ok,m:s.m});if(!ok)failed=true;}
   else if(s.see){let seen=false;for(let i=0;i<s.in/10;i++){step();if(c.bits[s.see])seen=true;}res.push({ok:seen,m:s.m});if(!seen)failed=true;}
+  else if(s.set){Object.assign(c.pl,s.set);n(2);}
+  else if(s.xs){const ok=!!s.xs(c.pl,c);res.push({ok,m:s.m});if(!ok)failed=true;}
+  else if(s.until||s.stay||s.blink||s.nb){const mt=o=>Object.entries(o).every(([a,v])=>!!c.bits[a]===!!v);let ok=s.until?false:true,on=false,off=false;
+   for(let i=0;i<s.in/10;i++){step();if(s.until&&mt(s.until)){ok=true;break;}if(s.stay&&!mt(s.stay))ok=false;if(s.blink){if(c.bits[s.blink])on=true;else off=true;}if(s.nb&&c.bits[s.nb[0]]&&c.bits[s.nb[1]])ok=false;}
+   if(s.blink)ok=on&&off;res.push({ok,m:s.m});if(!ok)failed=true;}
   else if(s.never){let seen=false;for(let i=0;i<s.in/10;i++){step();if(c.bits[s.never])seen=true;}res.push({ok:!seen,m:s.m});if(seen)failed=true;}
  }
+ if(!failed&&T.plant)for(const[k,m]of T.plant.checks){const ok=!c.pl[k];res.push({ok,m});if(!ok)failed=true;}
  X=S;
  const okN=res.filter(x=>x.ok).length,tot=res.length;
  S.report={fail:failed,title:failed?`Проверка не пройдена: ${okN} из ${tot}`:`Задание выполнено: ${tot} из ${tot}`,res};
@@ -615,16 +662,20 @@ function runTests(){
 /* ---------- UI rendering ---------- */
 const MOT=`<svg viewBox="0 0 40 40"><circle class="mc" cx="20" cy="20" r="17"/><g class="rot"><line x1="20" y1="20" x2="20" y2="7"/><line x1="20" y1="20" x2="31" y2="26.5"/><line x1="20" y1="20" x2="9" y2="26.5"/></g></svg>`;
 const FAN=`<svg viewBox="0 0 40 40"><circle class="mc" cx="20" cy="20" r="17"/><g class="rot"><ellipse cx="20" cy="12" rx="4" ry="7"/><ellipse cx="27" cy="24" rx="4" ry="7" transform="rotate(120 27 24)"/><ellipse cx="13" cy="24" rx="4" ry="7" transform="rotate(240 13 24)"/></g></svg>`;
-function devName(id){return(T.names&&T.names[id])||(id==='M1'&&T.motor)||DEV[id].name;}
+function devName(id){return(T.names&&T.names[id])||(id==='M1'&&T.motor)||D(id).name;}
 function devHTML(id){
- const d=DEV[id],name=devName(id),did=nid('d');
+ const d=D(id),name=devName(id),did=nid('d');
  if(d.k==='btn'){B.push({id:did,fn:()=>S.dev[id]});return`<div class="dev"><button class="pb ${d.col}" id="${did}" data-dev="${id}" aria-label="${id} ${name}"></button><div class="dn"><b>${id}</b> ${name}</div><div class="dw">${d.w==='NO'?'НО':'НЗ'} ${d.a}</div></div>`;}
- if(d.k==='tog'){B.push({id:did,fn:()=>S.dev[id]});return`<div class="dev"><button class="tg" id="${did}" data-tog="${id}"><span class="a">Норма</span><span class="b">Сработал</span></button><div class="dn"><b>${id}</b> ${name}</div><div class="dw">НЗ ${d.a}</div></div>`;}
+ if(d.k==='tog'){B.push({id:did,fn:()=>S.dev[id]});return`<div class="dev"><button class="tg ${d.la?'gen':''}" id="${did}" data-tog="${id}"><span class="a">${d.la||'Норма'}</span><span class="b">${d.lb||'Сработал'}</span></button><div class="dn"><b>${id}</b> ${name}</div><div class="dw">${d.a?`${d.w==='NO'?'НО':'НЗ'} ${d.a}`:'не в ПЛК'}</div></div>`;}
+ if(d.k==='sens'){B.push({id:did,fn:()=>S.dev[id]});return`<div class="dev"><div class="sn" id="${did}"><i></i></div><div class="dn"><b>${id}</b> ${name}</div><div class="dw">${d.w==='NO'?'НО':'НЗ'} ${d.a}</div></div>`;}
  B.push({id:did,fn:()=>!!S.bits[d.a]});
  if(d.k==='lamp')return`<div class="dev"><div class="lamp" data-c="${d.col}" id="${did}"></div><div class="dn"><b>${id}</b> ${name}</div><div class="dw">${d.a}</div></div>`;
+ if(d.k==='km')return`<div class="dev"><div class="km" id="${did}">${id}</div><div class="dn">${name}</div><div class="dw">${d.a}</div></div>`;
+ if(d.k==='horn')return`<div class="dev"><div class="mot horn" id="${did}"><svg viewBox="0 0 40 40"><path class="hb" d="M8 15h7l10-8v26l-10-8H8z"/><path class="hw" d="M29 13q5 7 0 14M33 9q8 11 0 22"/></svg></div><div class="dn"><b>${id}</b> ${name}</div><div class="dw">${d.a}</div></div>`;
+ if(d.k==='valve')return`<div class="dev"><div class="mot valve" id="${did}"><svg viewBox="0 0 40 40"><path class="hb" d="M6 12l14 8-14 8zM34 12l-14 8 14 8z"/><path class="hw" d="M20 20V8M14 8h12"/></svg></div><div class="dn"><b>${id}</b> ${name}</div><div class="dw">${d.a}</div></div>`;
  return`<div class="dev"><div class="mot ${d.rev?'rev':''}" id="${did}">${d.k==='fan'?FAN:MOT}</div><div class="dn"><b>${id}</b> ${name}</div><div class="dw">${d.a}</div></div>`;
 }
-function renderTabs(){$('#tabs').innerHTML=`<button class="basics" data-act="basics">📘 Основы</button>`+TASKS.map((t,i)=>`<button data-task="${i}" class="${i===S.ti?'act':''} ${STORE[t.id]&&STORE[t.id].passed?'ok':''}">${t.tab}</button>`).join('');}
+function renderTabs(){const done=CAT.filter(t=>STORE[t.id]&&STORE[t.id].passed).length;$('#tabs').innerHTML=`<button class="basics" data-act="basics">📘 Основы</button><button class="basics" data-act="catalog">📋 Задачи ${done}/${CAT.length}</button>`+TASKS.map((t,i)=>(t.isCat&&i!==S.ti)?'':`<button data-task="${i}" class="${i===S.ti?'act':''} ${STORE[t.id]&&STORE[t.id].passed?'ok':''}">${t.tab}</button>`).join('');const tb=$('#tabs'),a=tb.querySelector('.act');if(a&&(a.offsetLeft<tb.scrollLeft||a.offsetLeft+a.offsetWidth>tb.scrollLeft+tb.clientWidth))tb.scrollLeft=a.offsetLeft-tb.clientWidth/2+a.offsetWidth/2;}
 function renderCPU(){
  grp('cpu');
  const led=(l,fn,c)=>{const id=nid('l');B.push({id,fn});return`<span class="led ${c}" id="${id}"><i></i>${l}</span>`;};
@@ -639,14 +690,14 @@ function renderCPU(){
 function renderPanel(){
  grp('panel');
  const p=$('#panel');p.classList.toggle('min',S.pmin);
- p.innerHTML=`<div class="phd"><span class="ptitle">Пульт и объект</span><button class="mini" data-act="pmin">${S.pmin?'Развернуть':'Свернуть'}</button></div><div class="devs">${T.devices.map(devHTML).join('')}</div>`;
+ p.innerHTML=`<div class="phd"><span class="ptitle">Пульт и объект</span><button class="mini" data-act="pmin">${S.pmin?'Развернуть':'Свернуть'}</button></div>${plantView()}<div class="devs">${T.devices.map(devHTML).join('')}</div>`;
 }
 function renderTask(){
  const Lz=LESSONS[T.id];
  if(Lz&&S.view==='lesson'){const done=lessonDone(T.id);
   $('#task').innerHTML=`<div class="seg"><button class="act ${done?'ok':''}" data-view="lesson">Урок</button><button data-view="task">Задание</button></div><h2>${Lz.title}</h2>${lessonHTML(T.id,Lz)}<div class="tact"><button class="primary" data-view="task">К заданию →</button></div>`;return;}
  const seg=Lz?`<div class="seg"><button class="${lessonDone(T.id)?'ok':''}" data-view="lesson">Урок</button><button class="act" data-view="task">Задание</button></div>`:'';
- const w=T.devices.map(id=>{const d=DEV[id];return`<div class="wr"><b>${id}</b><div>${devName(id)} <span>${devKind(d)}</span></div><code>%${d.a}</code></div>`;}).join('');
+ const w=T.devices.filter(id=>D(id).a).map(id=>{const d=D(id);return`<div class="wr"><b>${id}</b><div>${devName(id)} <span>${devKind(d)}</span></div><code>%${d.a}</code></div>`;}).join('');
  $('#task').innerHTML=seg+`<h2>${T.name}</h2><p class="goal">${T.goal}</p><div class="wiring"><div class="wt">Подключение к ПЛК</div>${w}</div>${T.hint?`<details><summary>Подсказка</summary><div class="th">${T.hint}</div></details>`:''}<div class="tact">${T.tests?'<button class="primary" data-act="test">Проверить решение</button>':''}<button class="ghost" data-act="clear">Очистить программу</button></div><div id="report"></div>`;
  renderReport();
 }
@@ -665,7 +716,7 @@ function opbarHTML(){
  if(e.k==='c'||e.k==='q'){
   const list=tagList().filter(a=>e.k==='c'||a[0]==='Q'||(a[0]==='M'&&a!=='M20.5'));
   const inBr=L.par?`<span class="muted">В ветви: новый контакт встанет в эту же ветвь. Чтобы ставить после ветвей, тапни правую вертикальную линию группы.</span>`:'';
-  const flip=e.k==='c'?`<button class="chip flip" data-act="flip">${e.t==='NO'?'Сделать НЗ':'Сделать НО'}</button>`:'';
+  const flip=e.k==='c'?['NO','NC','P','N'].map(t=>`<button class="chip flip ${e.t===t?'act':''}" data-ctype="${t}">${({NO:'НО',NC:'НЗ',P:'P ↑',N:'N ↓'})[t]}</button>`).join(''):'';
   return flip+list.map(a=>chip(a,e.tag===a,'data-op')).join('')+inBr;
  }
  if(e.k==='p')return`<span class="muted">Параллельная группа. Новый контакт встанет после неё, «Ветвь» добавит ещё одну ветвь, «Удалить» уберёт всю группу.</span>`;
@@ -706,13 +757,14 @@ function paint(){
   if(!b.el)continue;
   if(b.fn)b.el.classList.toggle('on',!!b.fn());
   if(b.txt){const v=b.txt();if(b.el.textContent!==v)b.el.textContent=v;}
+  if(b.draw&&S.pl)b.draw(b.el);
  }
 }
 function loadTask(i){
  S.ti=i;T=TASKS[i];const st=STORE[T.id]||{};S.view=LESSONS[T.id]&&!st.lesson?'lesson':'task';
  S.prog=st.prog&&st.prog.length?clone(st.prog):[newNet()];S.custom=st.names||{};S.passed=!!st.passed;
  let mx=UID;walkAll(e=>{const n=parseInt(String(e.id).slice(1));if(n>=mx)mx=n+1;});S.prog.forEach(n=>{const k=parseInt(String(n.id).slice(1));if(k>=mx)mx=k+1;});UID=mx;
- S.loaded=clone(S.prog);S.dirty=false;S.bits={};S.dev={};S.inst={};S.sel=null;S.hist=[];S.comp=null;S.report=null;
+ S.loaded=clone(S.prog);S.dirty=false;S.bits={};S.dev={};S.inst={};S.pl=T.plant?T.plant.init():null;S._pt=undefined;S.sel=null;S.hist=[];S.comp=null;S.report=null;
  G={};renderTabs();renderCPU();renderPanel();renderTask();renderProg();renderTags();fit();
 }
 let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2400);}
@@ -721,15 +773,16 @@ let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('sh
 function mini(spec){
  const U=100,BW=100,RH=50,Y0=34;
  const wL=l=>l.reduce((a,e)=>a+wE(e),0)||U;
- const wE=e=>e[0]==='P'?Math.max(...e[1].map(wL)):(e[0]==='NO'||e[0]==='NC'?U:BW);
- const hL=l=>Math.max(1,...l.map(e=>e[0]==='P'?e[1].reduce((a,b)=>a+hL(b),0):1));
+ const isC=t=>t==='NO'||t==='NC'||t==='P'||t==='N';
+ const wE=e=>e[0]==='PAR'?Math.max(...e[1].map(wL)):(isC(e[0])?U:BW);
+ const hL=l=>Math.max(1,...l.map(e=>e[0]==='PAR'?e[1].reduce((a,b)=>a+hL(b),0):1));
  let s='';
  const ln=(a,b,c,d)=>{s+=`<line x1="${a}" y1="${b}" x2="${c}" y2="${d}"/>`;};
  const tx=(x,y,t,c='')=>{s+=`<text x="${x}" y="${y}" class="${c}">${t}</text>`;};
  const dL=(l,x0,y,W)=>{let x=x0;for(const e of l){const w=wE(e);dE(e,x,y,w);x+=w;}if(x<x0+W)ln(x,y,x0+W,y);};
  const dE=(e,x,y,w)=>{
-  if(e[0]==='NO'||e[0]==='NC'){ln(x,y,x+41,y);ln(x+41,y-10,x+41,y+10);ln(x+59,y-10,x+59,y+10);ln(x+59,y,x+w,y);if(e[0]==='NC')ln(x+37,y+12,x+63,y-12);tx(x+50,y-15,e[1]);return;}
-  if(e[0]==='P'){let yy=y;e[1].forEach((b,i)=>{dL(b,x,yy,w);if(i){ln(x,y,x,yy);ln(x+w,y,x+w,yy);}yy+=hL(b)*RH;});return;}
+  if(isC(e[0])){if(e[0]==='P'||e[0]==='N')tx(x+50,y+4,e[0],'b');ln(x,y,x+41,y);ln(x+41,y-10,x+41,y+10);ln(x+59,y-10,x+59,y+10);ln(x+59,y,x+w,y);if(e[0]==='NC')ln(x+37,y+12,x+63,y-12);tx(x+50,y-15,e[1]);return;}
+  if(e[0]==='PAR'){let yy=y;e[1].forEach((b,i)=>{dL(b,x,yy,w);if(i){ln(x,y,x,yy);ln(x+w,y,x+w,yy);}yy+=hL(b)*RH;});return;}
   ln(x,y,x+12,y);s+=`<rect x="${x+12}" y="${y-14}" width="${w-24}" height="42" rx="3"/>`;tx(x+w/2,y-1,e[0],'b');tx(x+w/2,y+18,e[1],'s');ln(x+w-12,y,x+w,y);
  };
  const W=wL(spec.s),H=Math.max(hL(spec.s),(spec.c||[]).length)*RH+14,cx=4+W+18;
@@ -762,7 +815,7 @@ quiz:[{q:'Что такое %M0.0?',o:['Вход','Выход','Внутренн
 ${mini({s:[['NO','"Start"'],['NC','"Stop"']],c:[['=','"Motor"']]})}
 <p><b>Контакт НО</b> (—| |—) пропускает ток, когда бит операнда = <b>1</b>.<br><b>Контакт НЗ</b> (—|/|—) пропускает ток, когда бит = <b>0</b>.<br><b>Катушка</b> (—( )—) записывает в свой бит 1, если до неё дошёл ток, и 0, если нет.</p>
 <p>Контакты <b>последовательно</b> — это И: нужны оба. <b>Параллельно</b> (ветвь) — это ИЛИ: хватит любого.</p>
-${mini({s:[['P',[[['NO','"A"']],[['NO','"B"']]]]],c:[['=','"Lamp"']]})}
+${mini({s:[['PAR',[[['NO','"A"']],[['NO','"B"']]]]],c:[['=','"Lamp"']]})}
 <p><b>Главная ловушка:</b> тип контакта в программе не связан с тем, какой контакт у кнопки в шкафу. Контакт в программе лишь проверяет бит: 1 или 0. Что придёт на вход от реальной кнопки — решает её подключение.</p>`,
 quiz:[{q:'Контакт НО с операндом %I0.0. На входе 1. Пропускает ли он ток?',o:['Да','Нет'],a:0,e:'НО контакт замкнут, когда бит = 1.'},
 {q:'Два контакта соединены параллельно. Это…',o:['Логическое И','Логическое ИЛИ','Инверсия'],a:1,e:'Параллельные ветви: достаточно, чтобы ток прошёл по любой из них.'},
@@ -773,7 +826,24 @@ quiz:[{q:'Контакт НО с операндом %I0.0. На входе 1. П
 <p><b>4.</b> Тапни шапку сети «Сеть N» — выберешь всю сеть: можно дать ей заголовок и комментарий, переместить выше или ниже, вставить новую сеть над ней или под ней.</p>
 <p><b>5.</b> «В ПЛК» компилирует и загружает программу. Пока не загрузил, ПЛК работает по старой. После загрузки нажимай кнопки на пульте и смотри, как в режиме «Мониторинг» по сети течёт ток: зелёным — где есть сигнал.</p>
 <p><b>6.</b> «Проверить решение» прогоняет автотест задания и показывает, что сработало, а что нет.</p>`,
-quiz:[{q:'Ты поменял программу, но лампа ведёт себя по-старому. Почему?',o:['Программа не загружена «В ПЛК»','Сломан выход','Нужно перезапустить приложение'],a:0,e:'Изменения начинают работать только после загрузки в ПЛК — как и в настоящем TIA Portal.'}]}
+quiz:[{q:'Ты поменял программу, но лампа ведёт себя по-старому. Почему?',o:['Программа не загружена «В ПЛК»','Сломан выход','Нужно перезапустить приложение'],a:0,e:'Изменения начинают работать только после загрузки в ПЛК — как и в настоящем TIA Portal.'}]},
+{id:'b6',title:'Фронты P и N',html:`<p>Обычный контакт смотрит на <b>уровень</b> сигнала: пока кнопка нажата, он замкнут каждый цикл. Иногда нужно другое: сработать <b>один раз</b> в момент нажатия.</p>
+${mini({s:[['P','"Button"']],c:[['=','"Pulse"']]})}
+<p><b>Контакт P</b> (положительный фронт) замкнут ровно <b>один цикл</b> — в том, где сигнал сменился с 0 на 1. <b>Контакт N</b> (отрицательный фронт) — один цикл при смене с 1 на 0.</p>
+<p>Без фронта кнопка, которую держат 0,3 с, при цикле 30 мс «сработает» 10 раз подряд. С фронтом — один раз, сколько бы её ни держали.</p>
+<p>Где нужны фронты: переключение одной кнопкой (импульсное реле), запоминание <b>нового</b> события аварии, счёт событий, действие в момент окончания чего-то (контакт N).</p>
+<p>В TIA Portal под контактом P указывают ещё и <b>меркер памяти фронта</b> — там ПЛК хранит прошлое значение сигнала. У каждого контакта P/N он должен быть свой. Здесь приложение делает это само.</p>`,
+quiz:[{q:'Кнопку держат 2 секунды. Сколько циклов замкнут контакт P на ней?',o:['Один','Все циклы, пока держат','Ни одного'],a:0,e:'P замкнут только в цикле, где сигнал перешёл из 0 в 1.'},
+{q:'Насос выключился. Какой контакт поймает этот момент?',o:['P на выходе насоса','N на выходе насоса','НЗ на выходе насоса'],a:1,e:'Выключение — переход 1→0, это отрицательный фронт, контакт N.'}]},
+{id:'b7',title:'Датчики и концевики',html:`<p>Кроме кнопок, к входам подключают <b>датчики</b>: они сами сообщают о состоянии объекта.</p>
+<p><b>Концевой выключатель</b> (концевик, SQ) нажимается механизмом в крайнем положении. Обычно его подключают <b>НЗ</b> контактом: пока механизм не доехал, на входе 1, доехал — 0. Если провод оборвётся, ПЛК увидит 0, как будто концевик нажат, и механизм остановится. Это та же защита от обрыва, что у кнопки Стоп.</p>
+<p>Поэтому в цепь движения ставят <b>НО</b> контакт своего концевика: пока 1 — едем, нажат (0) — стоп.</p>
+${mini({s:[['NO','"SQ_Open"'],['NC','"Gate_Close"'],['PAR',[[['NO','"Open"']],[['NO','"Gate_Open"']]]]],c:[['=','"Gate_Open"']]})}
+<p><b>Датчики уровня</b> (SL) здесь дают 1, когда находятся в воде. Двумя датчиками делают <b>гистерезис</b>: насос включается на нижнем уровне и выключается на верхнем, а между ними сохраняет своё состояние. Без этого насос щёлкал бы каждую секунду около одной отметки.</p>
+<p>В задачах с объектом внизу пульта видно сам механизм или бак. Если программа уведёт его за концевик или перельёт бак — проверка это заметит.</p>`,
+quiz:[{q:'Концевик SQ2 подключён НЗ. Механизм доехал до него. Что на входе?',o:['1','0'],a:1,e:'Механизм нажал концевик, его НЗ контакт разомкнулся — на входе 0.'},
+{q:'Зачем нижний и верхний датчик уровня, а не один?',o:['Чтобы насос не включался и не выключался слишком часто','Для резерва','Так дешевле'],a:0,e:'Это гистерезис: между уровнями состояние насоса сохраняется.'}]}
+
 ];
 const LESSONS={
 t1:{title:'Вход, выход и простейшая сеть',html:`<p>Самая простая программа: выход повторяет вход. Пока бит <code>%I0.0</code> = 1, контакт НО замкнут, ток доходит до катушки, и она пишет 1 в <code>%Q0.1</code>.</p>
@@ -783,7 +853,7 @@ ${mini({s:[['NO','"Start"']],c:[['=','"Lamp_Run"']]})}
 quiz:[{q:'Что запишет катушка, если до неё не дошёл ток?',o:['0','Оставит прежнее значение','1'],a:0,e:'Обычная катушка всегда записывает результат: нет тока — 0.'},
 {q:'Где лампа HL1 в этой задаче?',o:['%I0.1','%Q0.1','%M0.1'],a:1,e:'Лампа — исполнительное устройство, она на выходе %Q0.1.'}]},
 t2:{title:'Самоподхват и кнопка Стоп',html:`<p><b>Самоподхват</b> — классика релейных схем: параллельно кнопке Пуск ставят контакт самого выхода. Нажал Пуск — выход включился, и теперь он сам держит себя через свою ветвь.</p>
-${mini({s:[['NO','"Stop"'],['P',[[['NO','"Start"']],[['NO','"Motor"']]]]],c:[['=','"Motor"'],['=','"Lamp_Run"']]})}
+${mini({s:[['NO','"Stop"'],['PAR',[[['NO','"Start"']],[['NO','"Motor"']]]]],c:[['=','"Motor"'],['=','"Lamp_Run"']]})}
 <p><b>Почему Стоп — НО контакт в программе?</b> Кнопка SB2 в шкафу подключена <b>НЗ</b> контактом. В покое цепь замкнута, на <code>%I0.1</code> приходит 1. Чтобы ток проходил, пока Стоп не нажат, нужен контакт, который замкнут при 1, — это НО. Нажали Стоп — вход 0, цепь разорвана.</p>
 <p>Зачем так сложно? Это <b>защита от обрыва</b>: если провод от кнопки Стоп оборвётся, на входе станет 0, и мотор остановится, а не останется без возможности остановки.</p>
 <p><b>Стоп важнее Пуска:</b> контакт Стоп стоит последовательно перед всей параллельной группой, поэтому при нажатом Стоп не поможет ни Пуск, ни подхват.</p>`,
@@ -824,7 +894,7 @@ quiz:[{q:'Деталь 2 секунды стоит под датчиком. Ск
 {q:'PV = 5, CV = 5. Чему равен Q?',o:['0','1'],a:1,e:'Q = 1, когда CV ≥ PV.'}]},
 t7:{title:'Реверс и блокировка',html:`<p>Реверсивный пуск — два контактора: KM1 «вперёд» и KM2 «назад». Они меняют местами две фазы. Если включить оба сразу — <b>межфазное короткое замыкание</b>.</p>
 <p>Поэтому в цепь каждого контактора ставят <b>НЗ контакт другого</b> — это <b>взаимная блокировка</b>:</p>
-${mini({s:[['NO','"Stop"'],['P',[[['NO','"Fwd"']],[['NO','"Motor_Fwd"']]]],['NC','"Motor_Back"']],c:[['=','"Motor_Fwd"']]})}
+${mini({s:[['NO','"Stop"'],['PAR',[[['NO','"Fwd"']],[['NO','"Motor_Fwd"']]]],['NC','"Motor_Back"']],c:[['=','"Motor_Fwd"']]})}
 <p>Пока работает «назад», НЗ контакт <code>"Motor_Back"</code> разомкнут, и «вперёд» не включится, хоть жми. Сеть «назад» строится так же, зеркально.</p>
 <p>В настоящем шкафу программной блокировки <b>мало</b>: контактор может залипнуть, ПЛК — не знать об этом. Поэтому дублируют <b>электрической блокировкой</b> — НЗ блок-контактами KM1 и KM2 прямо в цепях катушек, а часто ещё и механической.</p>`,
 quiz:[{q:'Что будет, если KM1 и KM2 включатся одновременно?',o:['Мотор остановится','Межфазное КЗ','Мотор пойдёт быстрее'],a:1,e:'Реверсор меняет две фазы местами, при обоих включённых они замыкаются между собой.'},
@@ -853,6 +923,199 @@ function renderBasics(){
  const tb=ov.querySelector('.tabs'),ac=tb.querySelector('.act');if(ac)tb.scrollLeft=ac.offsetLeft-tb.clientWidth/2+ac.offsetWidth/2;
 }
 
+/* ---------- объекты (физика) ---------- */
+function tankPlant(o){return{type:'tank',o,
+ init:()=>({lv:o.lv0||0,max:o.lv0||0,over:false,dry:false}),
+ step(c,dt){const p=c.pl;let r=o.inflow||0;
+  for(const a in o.fill||{})if(c.bits[a])r+=o.fill[a];
+  for(const a in o.drain||{})if(c.bits[a]){r-=o.drain[a];if(p.lv<=0.05)p.dry=true;}
+  if(o.cons&&c.dev[o.cons.id])r-=o.cons.rate;
+  if(o.rain&&c.dev[o.rain.id])r+=o.rain.rate;
+  p.lv=Math.max(0,Math.min(100,p.lv+r*dt));if(p.lv>=100&&r>0)p.over=true;p.max=Math.max(p.max,p.lv);
+  for(const s of o.sens)c.dev[s.id]=p.lv>=s.lv;},
+ checks:[['over','Бак ни разу не переполнился'],['dry','Насос ни разу не работал всухую']]};}
+function axisPlant(o){return{type:'axis',o,
+ init:()=>({pos:o.pos0||0,ot:0,ht:0,over:false,short:false,hit:false}),
+ step(c,dt){const p=c.pl,f=!!c.bits[o.fwd],r=!!c.bits[o.rev];
+  if(f&&r)p.short=true;else if(f)p.pos+=o.spd*dt;else if(r)p.pos-=o.spd*dt;
+  p.pos=Math.max(0,Math.min(100,p.pos));
+  if((f&&p.pos>=100)||(r&&p.pos<=0)){p.ot+=dt;if(p.ot>0.35)p.over=true;}else p.ot=0;
+  if(o.obst&&r&&c.dev[o.obst]&&p.pos>1&&p.pos<99){p.ht+=dt;if(p.ht>0.3)p.hit=true;}else p.ht=0;
+  c.dev[o.lo]=p.pos<=0.5;c.dev[o.hi]=p.pos>=99.5;},
+ checks:[['short','Оба направления ни разу не включались одновременно'],['over','Мотор не работал в упор после концевика'],['hit','Механизм не ударил препятствие']]};}
+function fbPlant(o){return{type:'fb',o,init:()=>({t:0}),
+ step(c,dt){const p=c.pl;if(c.bits[o.out]&&!c.dev[o.fault])p.t+=dt;else p.t=0;c.dev[o.fb]=p.t>=0.2;},checks:[]};}
+function plantView(){
+ const P=T.plant;if(!P)return'';const o=P.o,pid=nid('pv');
+ const flag=()=>{const p=S.pl;if(!p)return'';return P.checks.filter(([k])=>p[k]).map(([k])=>({over:P.type==='tank'?'Перелив!':'Перебег за концевик!',dry:'Сухой ход!',short:'Оба направления сразу!',hit:'Удар по препятствию!'}[k])).join(' ');};
+ const fid=nid('pf');B.push({id:fid,txt:flag});
+ let svg='';
+ if(P.type==='tank'){
+  const wid=nid('pw'),tid=nid('pt'),y0=8,h=96;
+  B.push({id:wid,draw:el=>{const l=S.pl.lv;el.setAttribute('y',y0+h*(1-l/100));el.setAttribute('height',h*l/100);}});
+  B.push({id:tid,txt:()=>Math.round(S.pl.lv)+' %'});
+  const marks=o.sens.map(s=>{const y=y0+h*(1-s.lv/100),id=nid('ps');B.push({id,fn:()=>S.dev[s.id]});return`<line class="pm" x1="132" y1="${y}" x2="146" y2="${y}"/><circle class="pled" id="${id}" cx="152" cy="${y}" r="4"/><text class="plb" x="160" y="${y+4}">${s.id}</text>`;}).join('');
+  const pipe=(acts,x1,y,x2,lbl)=>{const id=nid('pp');B.push({id,fn:()=>acts.some(a=>S.bits[a])});return`<line class="pipe" id="${id}" x1="${x1}" y1="${y}" x2="${x2}" y2="${y}"/><text class="plb" x="${Math.min(x1,x2)}" y="${y-5}">${lbl}</text>`;};
+  const fills=Object.keys(o.fill||{}),drains=Object.keys(o.drain||{});
+  svg=`<svg viewBox="0 0 200 112" class="pls"><rect class="tankw" id="${wid}" x="70" y="${y0}" width="60" height="0"/><rect class="tank" x="70" y="${y0}" width="60" height="${h}" rx="3"/>${marks}${fills.length?pipe(fills,10,16,70,'налив'):''}${drains.length?pipe(drains,130,y0+h-6,196,''):''}${o.inflow||o.rain?`<text class="plb" x="8" y="60">${o.inflow?'приток':''}</text>`:''}<text class="plv" id="${tid}" x="100" y="62">0 %</text></svg>`;
+ }else if(P.type==='axis'){
+  const mid=nid('pa'),lo=nid('pl'),hi=nid('ph');
+  B.push({id:lo,fn:()=>S.dev[o.lo]});B.push({id:hi,fn:()=>S.dev[o.hi]});
+  const ob=o.obst?nid('po'):null;if(ob)B.push({id:ob,fn:()=>S.dev[o.obst]});
+  if(o.view==='gate'){
+   B.push({id:mid,draw:el=>el.setAttribute('transform',`translate(${-S.pl.pos} 0)`)});
+   svg=`<svg viewBox="0 0 240 74" class="pls"><line class="grd" x1="4" y1="62" x2="236" y2="62"/><rect class="post" x="114" y="14" width="6" height="48"/><rect class="post" x="220" y="14" width="6" height="48"/><g id="${mid}"><rect class="gate" x="120" y="20" width="100" height="38" rx="2"/><path class="gbar" d="M130 20v38M150 20v38M170 20v38M190 20v38M210 20v38"/></g>${ob?`<g class="car" id="${ob}"><rect x="150" y="44" width="40" height="14" rx="4"/></g>`:''}<circle class="pled" id="${lo}" cx="223" cy="8" r="4"/><text class="plb" x="196" y="11">${o.lo}</text><circle class="pled" id="${hi}" cx="117" cy="8" r="4"/><text class="plb" x="124" y="11">${o.hi}</text></svg>`;
+  }else if(o.view==='cart'){
+   B.push({id:mid,draw:el=>el.setAttribute('transform',`translate(${S.pl.pos*1.6} 0)`)});
+   svg=`<svg viewBox="0 0 240 74" class="pls"><line class="grd" x1="16" y1="56" x2="224" y2="56"/><g id="${mid}"><rect class="gate" x="20" y="28" width="40" height="22" rx="3"/><circle class="whl" cx="30" cy="52" r="4"/><circle class="whl" cx="50" cy="52" r="4"/></g><circle class="pled" id="${lo}" cx="14" cy="18" r="4"/><text class="plb" x="22" y="21">${o.lo}</text><circle class="pled" id="${hi}" cx="226" cy="18" r="4"/><text class="plb" x="196" y="21">${o.hi}</text></svg>`;
+  }else{
+   B.push({id:mid,draw:el=>el.setAttribute('transform',`rotate(${-S.pl.pos*0.85} 44 100)`)});
+   svg=`<svg viewBox="0 0 240 118" class="pls"><line class="grd" x1="4" y1="114" x2="236" y2="114"/><rect class="post" x="36" y="94" width="14" height="20"/><g id="${mid}"><rect class="boom" x="44" y="97" width="110" height="6" rx="3"/></g>${ob?`<g class="car" id="${ob}"><rect x="100" y="98" width="44" height="14" rx="4"/></g>`:''}<circle class="pled" id="${lo}" cx="164" cy="100" r="4"/><text class="plb" x="172" y="103">${o.lo}</text><circle class="pled" id="${hi}" cx="62" cy="10" r="4"/><text class="plb" x="70" y="13">${o.hi}</text></svg>`;
+  }
+ }else return'';
+ return`<div class="plant"><div class="plh"><span>Объект</span><span class="pflag" id="${fid}"></span><button class="mini" data-act="preset">Сбросить объект</button></div>${svg}</div>`;
+}
+
+/* ---------- каталог задач ---------- */
+const bt=(name,a,w,col,t)=>({k:'btn',name,a,w,col,t});
+const tg=(name,a,w,la,lb,t)=>({k:'tog',name,a,w,la,lb,t});
+const sn=(name,a,w,t)=>({k:'sens',name,a,w,t});
+const ou=(k,name,a,t,col,rev)=>({k,name,a,t,col,rev});
+const CATS=['Освещение','Двигатели','Насосы и баки','Механизмы','Сигнализация','Счёт и упаковка'];
+const pr=id=>({pr:id}),prN=(id,n)=>Array(n).fill({pr:id});
+const CAT=[
+{id:'c01',cat:0,lvl:1,name:'Лестничный автомат',topics:['TOF','ИЛИ'],
+ io:{SB1:bt('Кнопка 1 эт.','I0.0','NO','green','Btn_1'),SB2:bt('Кнопка 2 эт.','I0.1','NO','green','Btn_2'),SB3:bt('Кнопка 3 эт.','I0.2','NO','green','Btn_3'),HL1:ou('lamp','Свет','Q0.0','Light','white')},
+ goal:'Любая из трёх кнопок на этажах включает свет в подъезде. Свет гаснет через 10 с после последнего нажатия, повторное нажатие продлевает время.',
+ hint:`<p>Три контакта кнопок параллельно, за ними TOF с PT = 10 с и катушка света.</p>`,
+ tests:[pr('SB2'),{x:{'Q0.0':1},m:'Кнопка на 2 этаже включает свет'},{w:9000},{x:{'Q0.0':1},m:'Через 9 с ещё горит'},{w:1500},{x:{'Q0.0':0},m:'Через 10 с погас'},pr('SB1'),{w:5000},pr('SB3'),{w:7000},{x:{'Q0.0':1},m:'Повторное нажатие продлевает время'},{w:3500},{x:{'Q0.0':0},m:'Гаснет через 10 с после последнего нажатия'}]},
+{id:'c02',cat:0,lvl:2,name:'Импульсное реле',topics:['P-фронт','Исключающее ИЛИ'],
+ io:{SB1:bt('Выключатель','I0.0','NO','black','Button'),HL1:ou('lamp','Свет','Q0.0','Light','yellow')},
+ goal:'Одна кнопка без фиксации: нажал — свет включился, нажал ещё раз — выключился. Пока кнопку держат, свет не должен мигать.',
+ hint:`<p>Контакт P на кнопке даёт 1 только в одном цикле. Запиши этот импульс в меркер, например <code>%M0.0</code>.</p><p>Свет = (импульс И НЕ свет) ИЛИ (НЕ импульс И свет). Это две параллельные ветви, каждая из двух контактов.</p>`,
+ tests:[{x:{'Q0.0':0},m:'Сначала свет выключен'},pr('SB1'),{x:{'Q0.0':1},m:'Первое нажатие включает'},pr('SB1'),{x:{'Q0.0':0},m:'Второе выключает'},pr('SB1'),{x:{'Q0.0':1},m:'Третье снова включает'},{p:'SB1'},{stay:{'Q0.0':0},in:2000,m:'Пока кнопку держат, свет не мигает'},{r:'SB1'},{x:{'Q0.0':0},m:'Отпускание кнопки ничего не меняет'}]},
+{id:'c03',cat:0,lvl:2,name:'Фонарь с датчиком движения',topics:['TOF','И/ИЛИ'],
+ io:{B1:bt('Движение','I0.0','NO','yellow','Motion'),B2:tg('Освещённость','I0.1','NO','День','Темно','Dark'),SA1:tg('Режим','I0.2','NO','Авто','Вкл','Manual'),HL1:ou('lamp','Фонарь','Q0.0','Light','white')},
+ goal:'Днём фонарь не включается. В темноте датчик движения B1 включает его, и он горит ещё 8 с после последнего движения. Переключатель SA1 в положении «Вкл» включает фонарь постоянно.',
+ hint:`<p>Сеть 1: движение И темно → TOF 8 с → меркер. Сеть 2: меркер ИЛИ SA1 → фонарь.</p>`,
+ tests:[pr('B1'),{x:{'Q0.0':0},m:'Днём движение не включает свет'},{t:'B2'},pr('B1'),{x:{'Q0.0':1},m:'В темноте движение включает'},{w:7000},{x:{'Q0.0':1},m:'Горит после движения'},{w:1500},{x:{'Q0.0':0},m:'Через 8 с гаснет'},{t:'B2'},{t:'SA1'},{x:{'Q0.0':1},m:'Режим «Вкл» включает фонарь'},{w:10000},{x:{'Q0.0':1},m:'Горит постоянно, даже днём'},{t:'SA1'},{x:{'Q0.0':0},m:'Возврат в «Авто» выключает'}]},
+{id:'c04',cat:1,lvl:1,name:'Пуск с двух постов',topics:['Самоподхват','НЗ кнопки'],
+ io:{SB1:bt('Пуск 1','I0.0','NO','green','Start_1'),SB2:bt('Стоп 1','I0.1','NC','red','Stop_1'),SB3:bt('Пуск 2','I0.2','NO','green','Start_2'),SB4:bt('Стоп 2','I0.3','NC','red','Stop_2'),M1:ou('motor','Насос','Q0.0','Pump'),HL1:ou('lamp','Работа','Q0.1','Lamp_Run','green')},
+ goal:'Насос можно запустить и остановить с любого из двух постов. Обе кнопки Стоп подключены НЗ контактами. HL1 горит, пока насос работает. Стоп важнее Пуска.',
+ hint:`<p>Два Стопа последовательно, два Пуска и самоподхват — параллельно.</p>`,
+ tests:[pr('SB1'),{x:{'Q0.0':1,'Q0.1':1},m:'Пуск с первого поста, HL1 горит'},pr('SB4'),{x:{'Q0.0':0,'Q0.1':0},m:'Стоп со второго поста'},pr('SB3'),{x:{'Q0.0':1},m:'Пуск со второго поста'},pr('SB2'),{x:{'Q0.0':0},m:'Стоп с первого поста'},{p:'SB2'},pr('SB3'),{x:{'Q0.0':0},m:'Пока Стоп нажат, Пуск не работает'},{r:'SB2'}]},
+{id:'c05',cat:1,lvl:2,name:'Толчковый режим',topics:['Самоподхват','Меркер'],
+ io:{SB1:bt('Пуск','I0.0','NO','green','Start'),SB2:bt('Стоп','I0.1','NC','red','Stop'),SB3:bt('Толчок','I0.2','NO','black','Jog'),M1:ou('motor','Привод','Q0.0','Drive')},
+ goal:'Пуск запускает привод с самоподхватом, Стоп останавливает. Кнопка «Толчок» крутит привод, только пока её держат: отпустил — привод стоит.',
+ hint:`<p>Если поставить Толчок параллельно Пуску, привод встанет на самоподхват. Сделай самоподхват на меркере, который включает только Пуск, а выход = Стоп И (меркер ИЛИ Толчок).</p>`,
+ tests:[{p:'SB3'},{x:{'Q0.0':1},m:'Пока Толчок нажат, привод крутится'},{w:1000},{r:'SB3'},{x:{'Q0.0':0},m:'Отпустил Толчок — привод остановился'},{w:500},{x:{'Q0.0':0},m:'И сам не запустился'},pr('SB1'),{x:{'Q0.0':1},m:'Пуск запускает'},pr('SB3'),{x:{'Q0.0':1},m:'Толчок при работе не мешает'},pr('SB2'),{x:{'Q0.0':0},m:'Стоп останавливает'},{p:'SB2'},{p:'SB3'},{x:{'Q0.0':0},m:'При нажатом Стоп толчок не работает'},{r:'SB3'},{r:'SB2'}]},
+{id:'c06',cat:1,lvl:3,name:'Звезда-треугольник',topics:['TON','Блокировка'],
+ io:{SB1:bt('Пуск','I0.0','NO','green','Start'),SB2:bt('Стоп','I0.1','NC','red','Stop'),KK1:tg('Тепл. реле','I0.2','NC','Норма','Сработал','Thermal_OK'),KM1:ou('km','Сеть','Q0.0','KM_Line'),KM2:ou('km','Звезда','Q0.1','KM_Star'),KM3:ou('km','Треугольник','Q0.2','KM_Delta')},
+ goal:'Пуск включает KM1 (сеть) и KM2 (звезда). Через 4 с KM2 отключается и включается KM3 (треугольник). KM2 и KM3 никогда не включены вместе. Стоп или тепловое реле отключают всё.',
+ hint:`<p>Сеть 1: KM1 с самоподхватом, Стоп и тепловое реле последовательно. Сеть 2: KM1 → TON 4 с → меркер. Звезда = KM1 И НЕ меркер И НЕ KM3. Треугольник = KM1 И меркер И НЕ KM2.</p>`,
+ tests:[pr('SB1'),{x:{'Q0.0':1,'Q0.1':1,'Q0.2':0},m:'Пуск: сеть и звезда'},{w:3400},{x:{'Q0.0':1,'Q0.1':1,'Q0.2':0},m:'Через 3,5 с ещё звезда'},{nb:['Q0.1','Q0.2'],in:1000,m:'Звезда и треугольник не включались вместе'},{x:{'Q0.0':1,'Q0.1':0,'Q0.2':1},m:'Через 4 с — треугольник'},pr('SB2'),{x:{'Q0.0':0,'Q0.1':0,'Q0.2':0},m:'Стоп отключает всё'},pr('SB1'),{w:5000},{x:{'Q0.2':1},m:'Повторный пуск дошёл до треугольника'},{t:'KK1'},{x:{'Q0.0':0,'Q0.1':0,'Q0.2':0},m:'Тепловое реле отключает всё'},{t:'KK1'},{x:{'Q0.0':0},m:'После возврата реле двигатель сам не запускается'}]},
+{id:'c07',cat:1,lvl:3,name:'Пуск цепочки конвейеров',topics:['TON','TOF'],
+ io:{SB1:bt('Пуск','I0.0','NO','green','Start'),SB2:bt('Стоп','I0.1','NC','red','Stop'),M1:ou('motor','Конвейер 1','Q0.0','Conv_1'),M2:ou('motor','Конвейер 2','Q0.1','Conv_2'),M3:ou('motor','Конвейер 3','Q0.2','Conv_3')},
+ goal:'Материал идёт с конвейера 1 на 2, потом на 3. Пуск — против потока: сразу 3, через 3 с — 2, ещё через 3 с — 1. Стоп — по потоку: сразу 1, через 3 с — 2, ещё через 3 с — 3, чтобы ленты опустели.',
+ hint:`<p>Меркер «работа» с самоподхватом. Конвейер 1 = TON 6 с от меркера. Конвейер 2: TON 3 с → меркер, затем этот меркер → TOF 3 с. Конвейер 3 = TOF 6 с от меркера.</p>`,
+ tests:[pr('SB1'),{x:{'Q0.2':1,'Q0.1':0,'Q0.0':0},m:'Пуск: сразу конвейер 3'},{w:2500},{x:{'Q0.1':0},m:'Конвейер 2 ждёт'},{w:1000},{x:{'Q0.1':1,'Q0.0':0},m:'Через 3 с — конвейер 2'},{w:2000},{x:{'Q0.0':0},m:'Конвейер 1 ждёт'},{w:1000},{x:{'Q0.0':1},m:'Через 6 с — конвейер 1'},pr('SB2'),{x:{'Q0.0':0,'Q0.1':1,'Q0.2':1},m:'Стоп: сразу конвейер 1'},{w:2500},{x:{'Q0.1':1},m:'Конвейер 2 ещё работает'},{w:1000},{x:{'Q0.1':0,'Q0.2':1},m:'Через 3 с — стоп конвейера 2'},{w:2000},{x:{'Q0.2':1},m:'Конвейер 3 ещё работает'},{w:1000},{x:{'Q0.2':0},m:'Через 6 с — стоп конвейера 3'}]},
+{id:'c08',cat:1,lvl:3,name:'Контроль пуска по блок-контакту',topics:['TON','Set/Reset'],
+ io:{SB1:bt('Пуск','I0.0','NO','green','Start'),SB2:bt('Стоп','I0.1','NC','red','Stop'),KM1:sn('Блок-контакт KM1','I0.2','NO','KM1_FB'),SB3:bt('Сброс','I0.3','NO','blue','Reset'),KF:tg('Контактор',null,'NO','Исправен','Не тянет'),M1:ou('motor','Мотор','Q0.0','Motor'),HL2:ou('lamp','Авария','Q0.1','Lamp_Fault','red')},
+ plant:fbPlant({out:'Q0.0',fb:'KM1',fault:'KF'}),
+ goal:'ПЛК включает контактор мотора и ждёт ответа от его блок-контакта KM1. Если за 1 с ответа нет — авария: выход отключается, горит HL2, пуск заблокирован до кнопки «Сброс». Переключателем KF можно «сломать» контактор.',
+ hint:`<p>Выход включён И блок-контакт не замкнулся → TON 1 с → Set меркера аварии. В цепь пуска добавь НЗ контакт этого меркера. Сброс → Reset меркера.</p>`,
+ tests:[pr('SB1'),{w:1500},{x:{'Q0.0':1,'Q0.1':0},m:'Исправный контактор: мотор работает'},pr('SB2'),{x:{'Q0.0':0},m:'Стоп'},{t:'KF'},pr('SB1'),{x:{'Q0.0':1},m:'Команда на пуск выдана'},{w:1300},{x:{'Q0.0':0,'Q0.1':1},m:'Нет ответа 1 с — авария, выход отключён'},pr('SB1'),{x:{'Q0.0':0},m:'Пуск заблокирован'},{t:'KF'},pr('SB3'),{x:{'Q0.1':0},m:'Сброс снимает аварию'},pr('SB1'),{w:500},{x:{'Q0.0':1},m:'После сброса пуск работает'}]},
+{id:'c09',cat:2,lvl:1,name:'Наполнение бака',topics:['Гистерезис','Самоподхват'],
+ io:{SL1:sn('Нижний уровень','I0.0','NO','Level_Low'),SL2:sn('Верхний уровень','I0.1','NO','Level_High'),XV:tg('Расход воды',null,'NO','Закрыт','Открыт'),M1:ou('motor','Насос','Q0.0','Pump')},
+ plant:tankPlant({sens:[{id:'SL1',lv:20},{id:'SL2',lv:80}],fill:{'Q0.0':10},cons:{id:'XV',rate:5},lv0:10}),
+ goal:'Насос наполняет бак. Вода ниже нижнего датчика SL1 — насос включается, дошла до верхнего SL2 — выключается. Между датчиками насос сохраняет своё состояние. Датчик даёт 1, когда он в воде. Кран XV открывает расход.',
+ hint:`<p>Это самоподхват: (НЕ SL1 ИЛИ Насос) И НЕ SL2.</p>`,
+ tests:[{set:{lv:10}},{x:{'Q0.0':1},m:'Бак пустой — насос включён'},{until:{'Q0.0':0},in:9000,m:'Насос выключился на верхнем уровне'},{xs:p=>p.lv>=78&&p.lv<=84,m:'Уровень около 80 %'},{t:'XV'},{w:7000},{x:{'Q0.0':0},m:'Пока вода выше SL1, насос стоит'},{until:{'Q0.0':1},in:8000,m:'Вода ниже SL1 — насос включился'},{until:{'Q0.0':0},in:16000,m:'Бак снова наполнен'},{t:'XV'}]},
+{id:'c10',cat:2,lvl:2,name:'Дренажный приямок',topics:['Гистерезис','Аварийный уровень'],
+ io:{SL1:sn('Нижний','I0.0','NO','Level_Low'),SL2:sn('Верхний','I0.1','NO','Level_High'),SL3:sn('Аварийный','I0.2','NO','Level_Alarm'),RN:tg('Приток',null,'NO','Нет','Ливень'),M1:ou('motor','Насос','Q0.0','Pump'),HL1:ou('lamp','Переполнение','Q0.1','Lamp_Alarm','red')},
+ plant:tankPlant({sens:[{id:'SL1',lv:15},{id:'SL2',lv:75},{id:'SL3',lv:92}],drain:{'Q0.0':10},rain:{id:'RN',rate:4},lv0:30}),
+ goal:'Вода стекает в приямок. Насос откачивает её: включается на верхнем уровне SL2 и работает, пока вода не опустится ниже SL1. Если вода дошла до аварийного SL3 — горит HL1. Переключатель RN включает ливень.',
+ hint:`<p>Насос = (SL2 ИЛИ Насос) И SL1. HL1 = SL3.</p>`,
+ tests:[{set:{lv:30}},{x:{'Q0.0':0},m:'На среднем уровне насос стоит'},{t:'RN'},{until:{'Q0.0':1},in:13000,m:'Верхний уровень — насос включился'},{until:{'Q0.0':0},in:16000,m:'Откачал до нижнего уровня'},{xs:p=>p.lv>=10&&p.lv<=16,m:'Насос остановился у SL1'},{set:{lv:95}},{x:{'Q0.1':1,'Q0.0':1},m:'Аварийный уровень: HL1 горит, насос работает'},{until:{'Q0.1':0},in:3000,m:'Уровень упал — HL1 погас'},{t:'RN'}]},
+{id:'c11',cat:2,lvl:3,name:'Чередование двух насосов',topics:['N-фронт','Гистерезис'],
+ io:{SL1:sn('Нижний уровень','I0.0','NO','Level_Low'),SL2:sn('Верхний уровень','I0.1','NO','Level_High'),XV:tg('Расход воды',null,'NO','Закрыт','Открыт'),M1:ou('motor','Насос 1','Q0.0','Pump_1'),M2:ou('motor','Насос 2','Q0.1','Pump_2')},
+ plant:tankPlant({sens:[{id:'SL1',lv:20},{id:'SL2',lv:80}],fill:{'Q0.0':10,'Q0.1':10},cons:{id:'XV',rate:5},lv0:10}),
+ goal:'Бак наполняется по двум уровням, но насосов два. Чтобы они изнашивались равномерно, каждое следующее наполнение делает другой насос: 1, 2, 1, 2…',
+ hint:`<p>Сделай меркер «нужно наливать» с гистерезисом. На его заднем фронте (контакт N) переключай меркер выбора насоса, как в импульсном реле. Насос 1 = налив И НЕ выбор, насос 2 = налив И выбор.</p>`,
+ tests:[{set:{lv:10}},{x:{'Q0.0':1,'Q0.1':0},m:'Первое наполнение — насос 1'},{until:{'Q0.0':0},in:9000,m:'Бак наполнен'},{t:'XV'},{until:{'Q0.1':1},in:14000,m:'Второе наполнение — насос 2'},{x:{'Q0.0':0},m:'Насос 1 при этом стоит'},{until:{'Q0.1':0},in:16000,m:'Бак наполнен'},{until:{'Q0.0':1},in:14000,m:'Третье наполнение — снова насос 1'},{x:{'Q0.1':0},m:'Насос 2 стоит'},{t:'XV'}]},
+{id:'c12',cat:2,lvl:2,name:'Защита от сухого хода',topics:['Set/Reset','Мигание'],
+ io:{SB1:bt('Пуск','I0.0','NO','green','Start'),SB2:bt('Стоп','I0.1','NC','red','Stop'),SL1:sn('Сухой ход','I0.2','NO','Level_Min'),SL2:sn('Уровень в норме','I0.3','NO','Level_OK'),M1:ou('motor','Насос','Q0.0','Pump'),HL1:ou('lamp','Нет воды','Q0.1','Lamp_NoWater','yellow')},
+ plant:tankPlant({sens:[{id:'SL1',lv:10},{id:'SL2',lv:50}],drain:{'Q0.0':8},inflow:3,lv0:60}),
+ goal:'Насос качает воду из колодца по кнопкам Пуск/Стоп. Вода ниже SL1 — насос останавливается и мигает HL1. Когда колодец наполнится до SL2, насос сам запускается снова, если его не останавливали кнопкой Стоп.',
+ hint:`<p>Меркер «команда» с самоподхватом. Меркер «вода есть»: Set по SL2, Reset по НЕ SL1. Насос = команда И вода есть. HL1 = команда И НЕ вода есть И Clock_1Hz.</p>`,
+ tests:[{set:{lv:60}},pr('SB1'),{x:{'Q0.0':1},m:'Пуск'},{until:{'Q0.0':0},in:12000,m:'Вода ниже SL1 — насос остановился'},{blink:'Q0.1',in:1500,m:'HL1 мигает'},{until:{'Q0.0':1},in:16000,m:'Колодец наполнился — насос запустился сам'},{x:{'Q0.1':0},m:'HL1 погас'},pr('SB2'),{x:{'Q0.0':0},m:'Стоп'},{set:{lv:5}},{stay:{'Q0.0':0,'Q0.1':0},in:1500,m:'После Стоп насос не запускается и HL1 не мигает'}]},
+{id:'c13',cat:2,lvl:3,name:'Дозатор: три замеса',topics:['Шаги на Set/Reset','CTU','TON'],
+ io:{SB1:bt('Пуск','I0.0','NO','green','Start'),SB2:bt('Стоп','I0.1','NC','red','Stop'),SL1:sn('Нижний уровень','I0.2','NO','Level_Low'),SL2:sn('Верхний уровень','I0.3','NO','Level_High'),SB3:bt('Сброс','I0.4','NO','blue','Reset'),YV1:ou('valve','Налив','Q0.0','Valve_In'),M1:ou('motor','Мешалка','Q0.1','Mixer'),YV2:ou('valve','Слив','Q0.2','Valve_Out'),HL1:ou('lamp','Готово','Q0.3','Lamp_Done','green')},
+ plant:tankPlant({sens:[{id:'SL1',lv:20},{id:'SL2',lv:80}],fill:{'Q0.0':12},drain:{'Q0.2':15},lv0:0}),
+ goal:'Пуск запускает цикл: налив до SL2 → перемешивание 5 с → слив до SL1 → снова налив. После трёх замесов установка останавливается и горит HL1. SB3 «Сброс» гасит HL1. Стоп прерывает работу в любой момент.',
+ hint:`<p>Меркер «работа»: Set по Пуску, Reset по Стопу и по окончании. Каждый шаг — свой меркер: налив, мешалка, слив. Переход — Set следующего и Reset текущего.</p><p>Налив начинается, когда работа И бак пуст И ни один шаг не активен. Выходы = работа И меркер шага. CTU считает окончания слива, PV = 3, R = Сброс.</p>`,
+ tests:[{set:{lv:0}},pr('SB1'),{x:{'Q0.0':1,'Q0.1':0,'Q0.2':0},m:'Шаг 1: налив'},{until:{'Q0.0':0},in:8000,m:'Налив до верхнего уровня'},{x:{'Q0.1':1,'Q0.2':0},m:'Шаг 2: мешалка'},{w:4500},{x:{'Q0.1':1,'Q0.2':0},m:'Мешает 5 с'},{until:{'Q0.2':1,'Q0.1':0},in:1000,m:'Шаг 3: слив'},{until:{'Q0.2':0},in:6000,m:'Слив до нижнего уровня'},{w:200},{x:{'Q0.0':1},m:'Сразу следующий замес'},{until:{'Q0.3':1},in:40000,m:'После трёх замесов горит HL1'},{x:{'Q0.0':0,'Q0.1':0,'Q0.2':0},m:'Установка остановлена'},{w:3000},{x:{'Q0.0':0},m:'И сама не запускается'},pr('SB3'),{x:{'Q0.3':0},m:'Сброс гасит HL1'},pr('SB1'),{x:{'Q0.0':1},m:'Новый пуск'},{w:3000},pr('SB2'),{x:{'Q0.0':0},m:'Стоп прерывает работу'}]},
+{id:'c14',cat:3,lvl:2,name:'Ворота с концевиками',topics:['Концевики','Блокировка'],
+ io:{SB1:bt('Открыть','I0.0','NO','green','Open'),SB2:bt('Закрыть','I0.1','NO','black','Close'),SB3:bt('Стоп','I0.2','NC','red','Stop'),SQ1:sn('Закрыто','I0.3','NC','SQ_Closed'),SQ2:sn('Открыто','I0.4','NC','SQ_Open'),KM1:ou('motor','Открывание','Q0.0','Gate_Open'),KM2:ou('motor','Закрывание','Q0.1','Gate_Close',null,true)},
+ plant:axisPlant({fwd:'Q0.0',rev:'Q0.1',spd:20,lo:'SQ1',hi:'SQ2',view:'gate'}),
+ goal:'Открыть — ворота едут до концевика SQ2, Закрыть — до SQ1. Стоп останавливает в любом месте. Пока ворота едут в одну сторону, кнопка другой стороны не действует. Концевики подключены НЗ: 1, пока не нажаты.',
+ hint:`<p>Как реверс с блокировкой, только в цепь каждого направления добавь НО контакт своего концевика: нажат — на входе 0, цепь разорвана.</p>`,
+ tests:[pr('SB1'),{x:{'Q0.0':1},m:'Открыть — ворота поехали'},{until:{'Q0.0':0},in:6500,m:'Остановились на SQ2'},{xs:p=>p.pos>=99,m:'Ворота открыты полностью'},pr('SB2'),{x:{'Q0.1':1},m:'Закрыть — поехали обратно'},{w:1500},pr('SB1'),{x:{'Q0.0':0,'Q0.1':1},m:'Во время закрывания Открыть не действует'},pr('SB3'),{x:{'Q0.1':0},m:'Стоп останавливает'},pr('SB2'),{until:{'Q0.1':0},in:6000,m:'Закрылись на SQ1'},{xs:p=>p.pos<=1,m:'Ворота закрыты полностью'},pr('SB2'),{x:{'Q0.1':0},m:'Закрытые ворота дальше не закрываются'}]},
+{id:'c15',cat:3,lvl:3,name:'Автоматические ворота',topics:['Фотобарьер','TON','Set/Reset'],
+ io:{SB1:bt('Открыть','I0.0','NO','green','Open'),SB3:bt('Стоп','I0.1','NC','red','Stop'),SQ1:sn('Закрыто','I0.2','NC','SQ_Closed'),SQ2:sn('Открыто','I0.3','NC','SQ_Open'),BL1:tg('Фотобарьер','I0.4','NC','Свободно','Препятствие','Barrier_OK'),KM1:ou('motor','Открывание','Q0.0','Gate_Open'),KM2:ou('motor','Закрывание','Q0.1','Gate_Close',null,true),HL1:ou('lamp','Сигнал','Q0.2','Lamp_Move','yellow')},
+ plant:axisPlant({fwd:'Q0.0',rev:'Q0.1',spd:20,lo:'SQ1',hi:'SQ2',obst:'BL1',view:'gate'}),
+ goal:'Открыть — ворота открываются. Через 5 с после полного открытия закрываются сами. Если при закрывании перекрыли фотобарьер BL1 — сразу едут обратно на открывание. Пока барьер перекрыт, не закрываются. HL1 мигает, пока ворота движутся.',
+ hint:`<p>Закрывание И барьер перекрыт → Set меркера «реверс». Этот меркер стоит параллельно кнопке Открыть, а Reset ему даёт само открывание.</p><p>Автозакрытие: на SQ2 И барьер свободен → TON 5 с. HL1 = (KM1 ИЛИ KM2) И Clock_1Hz.</p>`,
+ tests:[pr('SB1'),{blink:'Q0.2',in:1500,m:'HL1 мигает при движении'},{until:{'Q0.0':0},in:5000,m:'Открылись до SQ2'},{x:{'Q0.2':0},m:'Стоят — HL1 не горит'},{w:4500},{x:{'Q0.1':0},m:'Стоят открытыми'},{until:{'Q0.1':1},in:1000,m:'Через 5 с закрываются сами'},{w:1500},{t:'BL1'},{until:{'Q0.0':1,'Q0.1':0},in:300,m:'Препятствие — ворота пошли на открывание'},{until:{'Q0.0':0},in:3000,m:'Открылись'},{w:6000},{x:{'Q0.1':0},m:'Пока барьер перекрыт, не закрываются'},{t:'BL1'},{until:{'Q0.1':1},in:5500,m:'Барьер свободен — закрываются через 5 с'},{until:{'Q0.1':0},in:6000,m:'Закрылись'},{xs:p=>p.pos<=1,m:'Ворота закрыты полностью'}]},
+{id:'c16',cat:3,lvl:2,name:'Тележка туда-обратно',topics:['Концевики','TON'],
+ io:{SB1:bt('Пуск','I0.0','NO','green','Start'),SB2:bt('Стоп','I0.1','NC','red','Stop'),SQ1:sn('Левый','I0.2','NC','SQ_Left'),SQ2:sn('Правый','I0.3','NC','SQ_Right'),KM1:ou('motor','Вправо','Q0.0','Cart_Right'),KM2:ou('motor','Влево','Q0.1','Cart_Left',null,true)},
+ plant:axisPlant({fwd:'Q0.0',rev:'Q0.1',spd:25,lo:'SQ1',hi:'SQ2',view:'cart'}),
+ goal:'После Пуска тележка ездит между концевиками SQ1 и SQ2 и в каждом крайнем положении стоит 2 с, в том числе перед первым ходом. Стоп останавливает её сразу.',
+ hint:`<p>Меркер «работа» с самоподхватом. На SQ1 → TON 2 с → меркер «ехать вправо», на SQ2 → TON 2 с → меркер «ехать влево». Движение вправо — с самоподхватом, до SQ2, с блокировкой от «влево».</p>`,
+ tests:[pr('SB1'),{w:1500},{x:{'Q0.0':0},m:'Пауза 2 с перед ходом'},{until:{'Q0.0':1},in:1000,m:'Поехала вправо'},{until:{'Q0.0':0},in:5000,m:'Доехала до SQ2'},{xs:p=>p.pos>=99,m:'Стоит у правого концевика'},{w:1500},{x:{'Q0.1':0},m:'Пауза 2 с'},{until:{'Q0.1':1},in:1000,m:'Поехала влево'},{until:{'Q0.1':0},in:5000,m:'Доехала до SQ1'},{xs:p=>p.pos<=1,m:'Стоит у левого концевика'},{until:{'Q0.0':1},in:2500,m:'Цикл повторяется'},pr('SB2'),{x:{'Q0.0':0,'Q0.1':0},m:'Стоп останавливает сразу'},{w:3000},{x:{'Q0.0':0,'Q0.1':0},m:'И сама не поехала'}]},
+{id:'c17',cat:3,lvl:2,name:'Шлагбаум',topics:['Концевики','TON'],
+ io:{SB1:bt('Въезд','I0.0','NO','green','Enter'),B1:tg('Петля','I0.1','NO','Пусто','Машина','Car_Loop'),SQ1:sn('Опущен','I0.2','NC','SQ_Down'),SQ2:sn('Поднят','I0.3','NC','SQ_Up'),KM1:ou('motor','Подъём','Q0.0','Boom_Up'),KM2:ou('motor','Опускание','Q0.1','Boom_Down',null,true)},
+ plant:axisPlant({fwd:'Q0.0',rev:'Q0.1',spd:33,lo:'SQ1',hi:'SQ2',obst:'B1',view:'boom'}),
+ goal:'SB1 поднимает шлагбаум до SQ2. Он опускается через 2 с после того, как в петле B1 нет машины. Если машина заехала в петлю во время опускания — стрела останавливается и опускается снова через 2 с после её проезда.',
+ hint:`<p>Подъём: самоподхват до SQ2, с блокировкой от опускания. Таймер: не опущен И петля пуста И нет подъёма → TON 2 с. Опускание с самоподхватом, до SQ1, и в цепи — НЗ контакт петли.</p>`,
+ tests:[pr('SB1'),{until:{'Q0.0':0},in:4000,m:'Поднялся до SQ2'},{t:'B1'},{w:4000},{x:{'Q0.1':0},m:'Пока машина в петле, не опускается'},{t:'B1'},{w:1500},{x:{'Q0.1':0},m:'Ждёт 2 с'},{until:{'Q0.1':1},in:1000,m:'Опускается'},{w:1000},{t:'B1'},{until:{'Q0.1':0},in:300,m:'Машина под стрелой — опускание остановлено'},{t:'B1'},{until:{'Q0.1':1},in:2500,m:'Опускание продолжилось через 2 с'},{until:{'Q0.1':0},in:4000,m:'Опустился'},{xs:p=>p.pos<=1,m:'Стрела опущена до SQ1'}]},
+{id:'c18',cat:4,lvl:2,name:'Светофор',topics:['Цепочка TON','Мигание'],
+ io:{SA1:tg('Светофор','I0.0','NO','Выкл','Вкл','On'),HL1:ou('lamp','Красный','Q0.0','Red','red'),HL2:ou('lamp','Жёлтый','Q0.1','Yellow','yellow'),HL3:ou('lamp','Зелёный','Q0.2','Green','green')},
+ goal:'Цикл: красный 5 с → красный+жёлтый 2 с → зелёный 5 с → жёлтый 2 с → снова красный. В положении SA1 «Выкл» мигает только жёлтый.',
+ hint:`<p>Цепочка из четырёх TON: каждый запускается выходом предыдущего, первый — от SA1 И НЕ выход последнего. Так цепочка сама сбрасывается и начинается заново.</p><p>Красный = SA1 И НЕ T2. Зелёный = T2 И НЕ T3. Жёлтый = (T1 И НЕ T2) ИЛИ T3 ИЛИ (НЕ SA1 И Clock_1Hz).</p>`,
+ tests:[{blink:'Q0.1',in:1500,m:'Выключен: мигает жёлтый'},{x:{'Q0.0':0,'Q0.2':0},m:'Красный и зелёный не горят'},{t:'SA1'},{x:{'Q0.0':1,'Q0.1':0,'Q0.2':0},m:'Включили: красный'},{w:4400},{x:{'Q0.0':1,'Q0.1':0,'Q0.2':0},m:'Красный 5 с'},{w:1000},{x:{'Q0.0':1,'Q0.1':1,'Q0.2':0},m:'Красный и жёлтый'},{w:2000},{x:{'Q0.0':0,'Q0.1':0,'Q0.2':1},m:'Зелёный'},{w:4000},{x:{'Q0.2':1},m:'Зелёный 5 с'},{w:1000},{x:{'Q0.0':0,'Q0.1':1,'Q0.2':0},m:'Жёлтый'},{w:2000},{x:{'Q0.0':1,'Q0.1':0,'Q0.2':0},m:'Снова красный'}]},
+{id:'c19',cat:4,lvl:2,name:'Авария с квитированием',topics:['P-фронт','Set/Reset','Мигание'],
+ io:{B1:tg('Давление','I0.0','NO','Норма','Авария','Alarm_Press'),SB1:bt('Квитирование','I0.1','NO','blue','Ack'),HL1:ou('lamp','Авария','Q0.0','Lamp_Alarm','red'),HA1:ou('horn','Сирена','Q0.1','Horn')},
+ goal:'Авария: лампа мигает и звучит сирена. Квитирование выключает сирену, а лампа горит ровно, пока авария есть. Авария ушла — лампа гаснет. Если авария исчезла раньше квитирования, лампа мигает и сирена звучит до квитирования.',
+ hint:`<p>Фронт P аварии → Set меркера «не квитировано». Квитирование → Reset. Лампа = (меркер И Clock_1Hz) ИЛИ (НЕ меркер И авария). Сирена = меркер.</p>`,
+ tests:[{t:'B1'},{x:{'Q0.1':1},m:'Авария: сирена'},{blink:'Q0.0',in:1500,m:'Лампа мигает'},pr('SB1'),{x:{'Q0.1':0},m:'Квитирование выключает сирену'},{stay:{'Q0.0':1},in:1500,m:'Лампа горит ровно'},{t:'B1'},{x:{'Q0.0':0},m:'Авария ушла — лампа погасла'},{t:'B1'},{w:300},{t:'B1'},{blink:'Q0.0',in:1500,m:'Авария исчезла без квитирования — лампа мигает'},{x:{'Q0.1':1},m:'Сирена звучит до квитирования'},pr('SB1'),{stay:{'Q0.0':0,'Q0.1':0},in:1000,m:'После квитирования всё погасло'}]},
+{id:'c20',cat:4,lvl:3,name:'Охранная сигнализация',topics:['TON','Set/Reset','Мигание'],
+ io:{SA1:tg('Охрана','I0.0','NO','Снята','Взята','Arm'),SQ1:tg('Дверь','I0.1','NC','Закрыта','Открыта','Door_Closed'),HL1:ou('lamp','Охрана','Q0.0','Lamp_Armed','green'),HA1:ou('horn','Сирена','Q0.1','Siren')},
+ goal:'После включения охраны 10 с даётся на выход: HL1 мигает, дверь открывать можно. Потом HL1 горит ровно. Открыли дверь — через 5 с сирена (время войти и снять охрану). Сирена звучит, даже если дверь закрыли, пока охрану не сняли.',
+ hint:`<p>SA1 → TON 10 с → меркер «взято». HL1 = (SA1 И НЕ взято И Clock) ИЛИ взято. Взято И дверь открыта → Set меркера «проникновение», НЕ SA1 → Reset. Проникновение → TON 5 с → сирена.</p>`,
+ tests:[{t:'SA1'},{blink:'Q0.0',in:1500,m:'Время на выход: HL1 мигает'},{t:'SQ1'},{never:'Q0.1',in:3000,m:'Во время выхода дверь открывать можно'},{t:'SQ1'},{w:5600},{stay:{'Q0.0':1},in:1000,m:'Охрана взята: HL1 горит ровно'},{t:'SQ1'},{w:4500},{x:{'Q0.1':0},m:'Время на вход 5 с'},{w:800},{x:{'Q0.1':1},m:'Сирена'},{t:'SQ1'},{x:{'Q0.1':1},m:'Закрыли дверь — сирена держится'},{t:'SA1'},{x:{'Q0.0':0,'Q0.1':0},m:'Снятие охраны выключает всё'},{t:'SA1'},{w:10500},{t:'SQ1'},{w:3000},{t:'SA1'},{never:'Q0.1',in:3000,m:'Сняли охрану вовремя — сирены нет'},{t:'SQ1'}]},
+{id:'c21',cat:5,lvl:2,name:'Упаковка по 6 штук',topics:['CTU','TON'],
+ io:{SB1:bt('Пуск','I0.0','NO','green','Start'),SB2:bt('Стоп','I0.1','NC','red','Stop'),B1:bt('Деталь','I0.2','NO','yellow','Part'),M1:ou('motor','Конвейер','Q0.0','Conveyor'),HL1:ou('lamp','Смена коробки','Q0.1','Lamp_Box','yellow')},
+ goal:'Конвейер подаёт детали в коробку, датчик B1 считает их. После 6-й детали конвейер стоит 3 с, пока меняют коробку (горит HL1), затем сам едет дальше, и счёт начинается заново. Детали считаются только при работающем конвейере.',
+ hint:`<p>B1 И конвейер → CTU, PV = 6. Выход Q → меркер «полная». Полная → TON 3 с → меркер, он же вход R счётчика. Конвейер = работа И НЕ полная.</p>`,
+ tests:[pr('SB1'),{x:{'Q0.0':1},m:'Пуск'},...prN('B1',5),{x:{'Q0.0':1},m:'5 деталей — конвейер работает'},pr('B1'),{x:{'Q0.0':0,'Q0.1':1},m:'6-я деталь: стоп, смена коробки'},pr('B1'),pr('B1'),{w:2300},{x:{'Q0.0':0},m:'Стоит 3 с'},{until:{'Q0.0':1,'Q0.1':0},in:1000,m:'Коробку сменили — конвейер поехал'},...prN('B1',5),{x:{'Q0.0':1},m:'Детали во время паузы не посчитаны'},pr('B1'),{x:{'Q0.0':0},m:'Снова 6 штук'},pr('SB2'),{w:3500},{x:{'Q0.0':0},m:'После Стоп конвейер сам не поехал'}]},
+{id:'c22',cat:5,lvl:2,name:'Отбраковка',topics:['TOF','CTU'],
+ io:{B1:bt('Деталь','I0.0','NO','yellow','Part'),B2:tg('Качество','I0.1','NO','Годная','Брак','Defect'),SB1:bt('Сброс','I0.2','NO','blue','Reset'),YA1:ou('valve','Толкатель','Q0.0','Pusher'),HL1:ou('lamp','Партия 10 шт.','Q0.1','Lamp_Batch','green')},
+ goal:'Датчик B1 видит деталь, B2 говорит, брак ли она. Бракованную деталь толкатель YA1 сбрасывает: выдвигается на 1 с. Годные детали считаются, после 10 годных загорается HL1. SB1 обнуляет счёт.',
+ hint:`<p>B1 И B2 → TOF 1 с → толкатель. B1 И НЕ B2 → CTU, PV = 10, R = Сброс → HL1.</p>`,
+ tests:[pr('B1'),{never:'Q0.0',in:1200,m:'Годную деталь толкатель не трогает'},{t:'B2'},pr('B1'),{x:{'Q0.0':1},m:'Брак — толкатель выдвинулся'},{w:800},{x:{'Q0.0':1},m:'Держит около 1 с'},{w:400},{x:{'Q0.0':0},m:'И вернулся'},{t:'B2'},...prN('B1',8),{x:{'Q0.1':0},m:'9 годных — ещё не партия'},{t:'B2'},pr('B1'),{t:'B2'},{x:{'Q0.1':0},m:'Брак в счёт не идёт'},pr('B1'),{x:{'Q0.1':1},m:'10 годных — HL1'},pr('SB1'),{x:{'Q0.1':0},m:'Сброс обнуляет счёт'}]}
+];
+CAT.forEach(t=>{t.devices=Object.keys(t.io);t.tab=t.name;t.isCat=true;TASKS.push(t);});
+function renderCatalog(){
+ const ov=$('#catalog');if(!S.catOpen){ov.hidden=true;if(!S.basics)document.body.classList.remove('noscroll');return;}
+ ov.hidden=false;document.body.classList.add('noscroll');
+ const f=S.catF,done=CAT.filter(t=>STORE[t.id]&&STORE[t.id].passed).length;
+ const chips=`<button class="${f<0?'act':''}" data-cf="-1">Все</button>`+CATS.map((c,i)=>`<button class="${f===i?'act':''}" data-cf="${i}">${c}</button>`).join('');
+ const cards=CAT.filter(t=>f<0||t.cat===f).map(t=>{const i=TASKS.indexOf(t),ok=STORE[t.id]&&STORE[t.id].passed;
+  return`<button class="ccard ${ok?'ok':''}" data-task="${i}"><span class="cc">${CATS[t.cat]}</span><span class="cn">${t.name}</span><span class="cl">${'★'.repeat(t.lvl)}<i>${'★'.repeat(3-t.lvl)}</i></span><span class="ct2">${t.topics.join(' · ')}</span>${ok?'<span class="cok">✓ решено</span>':''}</button>`;}).join('');
+ ov.innerHTML=`<div class="bwrap card"><div class="bhd"><b>Задачи · решено ${done} из ${CAT.length}</b><button class="mini" data-act="cclose">Закрыть</button></div><nav class="tabs">${chips}</nav><div class="cgrid">${cards}</div></div>`;
+}
+
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{
  const t=e.target;
@@ -861,7 +1124,9 @@ document.addEventListener('click',e=>{
   if(k[0]==='b')renderBasics();else renderTask();return;}
  const vw=t.closest('[data-view]');if(vw){S.view=vw.dataset.view;renderTask();$('#task').scrollIntoView({block:'start',behavior:'smooth'});return;}
  const bl=t.closest('[data-bl]');if(bl){S.bi=+bl.dataset.bl;renderBasics();return;}
- const tk=t.closest('[data-task]');if(tk){loadTask(+tk.dataset.task);return;}
+ const ct=t.closest('[data-ctype]');if(ct){const L=locate(S.sel.id);if(L)edit(()=>{L.el.t=ct.dataset.ctype;});return;}
+ const cf=t.closest('[data-cf]');if(cf){S.catF=+cf.dataset.cf;renderCatalog();return;}
+ const tk=t.closest('[data-task]');if(tk){if(S.catOpen){S.catOpen=false;renderCatalog();}loadTask(+tk.dataset.task);try{window.scrollTo(0,0);}catch(e){}return;}
  const tl=t.closest('[data-tool]');if(tl){tool(tl.dataset.tool);return;}
  const op=t.closest('[data-op]');if(op){const L=locate(S.sel.id);if(L)edit(()=>{L.el.tag=op.dataset.op;});return;}
  const rr=t.closest('[data-r]');if(rr){const L=locate(S.sel.id);if(L)edit(()=>{L.el.r=rr.dataset.r;});return;}
@@ -882,6 +1147,9 @@ document.addEventListener('click',e=>{
  else if(act==='closecomp'){S.comp=null;renderComp();}
  else if(act==='runstop'){S.run=!S.run;if(S.run){for(const k in S.bits)if(k[0]==='M'&&k!=='M20.5')delete S.bits[k];S.inst={};}}
  else if(act==='mon'){S.mon=!S.mon;renderProg();}
+ else if(act==='catalog'){S.catOpen=true;renderCatalog();}
+ else if(act==='cclose'){S.catOpen=false;renderCatalog();}
+ else if(act==='preset'){S.pl=T.plant.init();S.dev={};}
  else if(act==='basics'){S.basics=true;renderBasics();}
  else if(act==='bclose'){S.basics=false;renderBasics();}
  else if(act==='pmin'){S.pmin=!S.pmin;renderPanel();paint();fit();}
